@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        run: |
+          if [ "${{ github.event.pull_request.head.ref }}" != "develop" ] && [ "${{ github.event.pull_request.head.ref }}" != "" ]; then
+            echo "Deploy only allowed from develop branch"
+            exit 1
+          fi
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.LIGHTSAIL_IP }}
+          username: bitnami
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          script: |
+            cd /bitnami/wordpress/wp-content/plugins/theme-customisations-master
+            git pull origin main
