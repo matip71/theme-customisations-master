@@ -19,7 +19,22 @@ function tf_talle_a_medida_fields() {
 
     // Verificar si el producto soporta talle a medida a través de ACF
     $habilitado = get_field( 'habilitar_talle_a_medida', $product_id );
-    if ( ! $habilitado ) return;
+
+    // Obtener los talles estándar del producto (Atributo global pa_talle o atributo local talle)
+    $talle_attr = $product->get_attribute( 'tf_talle' );
+    if ( empty($talle_attr) ) {
+        $talle_attr = $product->get_attribute( 'talle' );
+    }
+
+    $talles_estandar = array();
+    if ( ! empty($talle_attr) ) {
+        $talles_estandar = array_filter( array_map( 'trim', preg_split('/[|,]/', $talle_attr) ) );
+    }
+
+    // Si no tiene talles estándar ni está habilitado 'a medida', no mostramos el selector
+    if ( empty($talles_estandar) && ! $habilitado ) {
+        return;
+    }
 
     // Obtener las medidas requeridas para este producto (ej. Array de checkboxes)
     $medidas_requeridas = get_field( 'medidas_requeridas', $product_id );
@@ -43,13 +58,13 @@ function tf_talle_a_medida_fields() {
         <p class="form-row form-row-wide">
             <label for="tf_talle"><strong><?php esc_html_e('Talle', 'woocommerce'); ?> <abbr class="required" title="obligatorio">*</abbr></strong></label>
             <select name="tf_talle" id="tf_talle" class="select" required style="width:100%;">
-                <option value="">Seleccionar</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="a_medida">A medida</option>
+                <option value=""><?php esc_html_e('Seleccionar', 'woocommerce'); ?></option>
+                <?php foreach ( $talles_estandar as $tal ) : ?>
+                    <option value="<?php echo esc_attr( $tal ); ?>"><?php echo esc_html( $tal ); ?></option>
+                <?php endforeach; ?>
+                <?php if ( $habilitado ) : ?>
+                    <option value="a_medida"><?php esc_html_e('A medida', 'woocommerce'); ?></option>
+                <?php endif; ?>
             </select>
         </p>
 
@@ -112,7 +127,19 @@ function tf_talle_a_medida_fields() {
 add_filter( 'woocommerce_add_to_cart_validation', 'tf_validar_talle_a_medida', 10, 3 );
 function tf_validar_talle_a_medida( $passed, $product_id, $quantity ) {
     $habilitado = get_field( 'habilitar_talle_a_medida', $product_id );
-    if ( ! $habilitado ) return $passed;
+
+    // Para saber si se debió imprimir el selector o no
+    $product = wc_get_product($product_id);
+    $talle_attr = $product->get_attribute( 'tf_talle' );
+    if ( empty($talle_attr) ) {
+        $talle_attr = $product->get_attribute( 'talle' );
+    }
+    $talles_estandar = array_filter( array_map( 'trim', preg_split('/[|,]/', $talle_attr) ) );
+
+    // Si el producto no requiere talle en absoluto, saltar validación
+    if ( empty($talles_estandar) && ! $habilitado ) {
+        return $passed;
+    }
 
     $talle = isset($_POST['tf_talle']) ? sanitize_text_field($_POST['tf_talle']) : '';
     $medidas_requeridas = get_field( 'medidas_requeridas', $product_id );
