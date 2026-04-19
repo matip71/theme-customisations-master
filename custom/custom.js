@@ -24,4 +24,57 @@ jQuery(document).ready(function ($) {
 		$talle.on('change', toggleMedidas);
 		toggleMedidas(); // Run once on load to reflect any pre-selected value.
 	}
+
+	// ── Cart: variation dl → tooltip ───────────────────────────────
+	$('.woocommerce-cart-form .variation').each(function () {
+		var $dl = $(this);
+		var leaveTimer;
+
+		var $wrap = $('<span class="tf-variation-tooltip"></span>');
+		var $trigger = $('<button type="button" class="tf-variation-trigger" aria-label="Ver medidas" aria-expanded="false"><i class="fas fa-info-circle"></i></button>');
+		var $panel = $('<div class="tf-variation-panel" role="tooltip"></div>');
+
+		// Build panel rows from the original dl
+		$dl.find('dt').each(function () {
+			var label = $(this).text().replace(/:$/, '');
+			var value = $(this).next('dd').text().trim();
+			$panel.append(
+				$('<div class="tf-variation-row"></div>')
+					.append($('<span class="tf-variation-key"></span>').text(label))
+					.append($('<span class="tf-variation-val"></span>').text(value))
+			);
+		});
+
+		$wrap.append($trigger).append($panel);
+		$dl.replaceWith($wrap);
+
+		function openPanel() {
+			clearTimeout(leaveTimer);
+			$('.tf-variation-panel.tf-is-open').not($panel).removeClass('tf-is-open');
+			$('.tf-variation-trigger[aria-expanded="true"]').not($trigger).attr('aria-expanded', 'false');
+			$panel.addClass('tf-is-open');
+			$trigger.attr('aria-expanded', 'true');
+		}
+
+		function closePanel() {
+			$panel.removeClass('tf-is-open');
+			$trigger.attr('aria-expanded', 'false');
+		}
+
+		// Hover (desktop) — 200ms delay prevents accidental close
+		$trigger.on('mouseenter', openPanel);
+		$trigger.on('mouseleave', function () { leaveTimer = setTimeout(closePanel, 200); });
+		$panel.on('mouseenter', function () { clearTimeout(leaveTimer); });
+		$panel.on('mouseleave', function () { leaveTimer = setTimeout(closePanel, 200); });
+
+		// Click toggle (mobile & keyboard)
+		$trigger.on('click', function (e) {
+			e.stopPropagation();
+			clearTimeout(leaveTimer);
+			$panel.hasClass('tf-is-open') ? closePanel() : openPanel();
+		});
+
+		// Close on outside click
+		$(document).on('click.tf-tooltip', function () { closePanel(); });
+	});
 });

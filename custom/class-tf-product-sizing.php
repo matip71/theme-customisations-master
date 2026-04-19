@@ -56,7 +56,7 @@ class TF_Product_Sizing {
         <div class="tf-custom-sizing">
             <p class="form-row form-row-wide">
                 <label for="tf_talle">
-                    <strong><?php esc_html_e( 'Talle', 'woocommerce' ); ?> <abbr class="required" title="obligatorio">*</abbr></strong>
+                    <?php esc_html_e( 'Talle', 'woocommerce' ); ?>
                 </label>
                 <select name="tf_talle" id="tf_talle" class="select" required>
                     <option value=""><?php esc_html_e( 'Seleccionar', 'woocommerce' ); ?></option>
@@ -79,7 +79,6 @@ class TF_Product_Sizing {
                     <p class="form-row form-row-wide">
                         <label for="tf_medida_<?php echo esc_attr( $campo ); ?>">
                             <?php echo esc_html( tf_format_measure_label( $campo ) ); ?>
-                            <abbr class="required" title="obligatorio">*</abbr>
                         </label>
                         <input
                             type="number"

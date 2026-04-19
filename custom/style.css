@@ -166,6 +166,53 @@ footer .site-info {
 	outline: none;
 }
 
+.woocommerce-account form input:not([type="submit"]),
+.woocommerce-account form select,
+.woocommerce-account form textarea {
+	background-color: #ffffff;
+	border: 1px solid #dadad6;
+	border-radius: 0;
+	padding: 5px 10px;
+	line-height: 1;
+	color: #333333;
+	font-family: Montserrat, sans-serif;
+	letter-spacing: 0.03em;
+	outline: none;
+	transition:
+		background-color 0.5s ease,
+		border-color 0.5s ease,
+		box-shadow 0.5s ease;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.woocommerce-account form input[type="submit"] {
+	width: auto;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+
+.woocommerce-account form select {
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+
+.woocommerce-account form input:not([type="submit"]):focus,
+.woocommerce-account form select:focus,
+.woocommerce-account form textarea:focus {
+	background-color: #ffffff;
+	border-bottom: 2px solid #000000;
+	outline: none;
+	box-shadow: none;
+}
+
+.woocommerce-account form table td,
+.woocommerce-account form table th {
+	padding: 0.5em 1em;
+	border-bottom: 1px solid #dadad6;
+}
+
 
 
 /* ── Shop ──────────────────────────────────────────────────────── */
@@ -252,22 +299,68 @@ footer .site-info {
 	margin-bottom: 2em;
 }
 
+.tf-custom-sizing>p {
+	margin-bottom: 1em;
+}
+
 .tf-custom-sizing select {
-	width: 100%;
+	width: auto;
 }
 
 .tf-medidas-wrap {
 	display: none;
-	margin-top: 20px;
-	padding: 15px;
+	padding: 10px;
 	border: 1px solid #e5e5e5;
 	border-radius: 4px;
 	background: #fafafa;
 }
 
-.tf-medidas-wrap input.input-text {
-	width: 100%;
+.tf-medidas-wrap p {
+	margin-bottom: 10px;
 }
+
+.tf-medidas-wrap p.form-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tf-medidas-wrap label,
+.tf-medidas-wrap input {
+	width: auto;
+}
+
+.tf-medidas-wrap label {
+	min-width: 50%;
+}
+
+.tf-medidas-wrap input {
+	max-width: 35%;
+}
+
+.tf-medidas-wrap input:not([type="submit"]) {
+	background-color: #ffffff;
+	border: 1px solid #dadad6;
+	border-radius: 0;
+	padding: 5px 10px;
+	line-height: 1;
+	color: #333333;
+	font-family: Montserrat, sans-serif;
+	letter-spacing: 0.03em;
+	outline: none;
+	transition:
+		background-color 0.5s ease,
+		border-color 0.5s ease,
+		box-shadow 0.5s ease;
+	box-sizing: border-box;
+}
+
+.tf-medidas-wrap input:not([type="submit"]):focus {
+	background-color: #ffffff;
+	border-bottom: 2px solid #000000;
+	outline: none;
+	box-shadow: none;
+}
+
 
 /* ── Cart/Mini Cart/ Checkout ──────────────────────────────────────────────────────── */
 
@@ -323,6 +416,82 @@ footer .site-info {
 
 .woocommerce-checkout .woocommerce-info a:focus {
 	outline: none;
+}
+
+/* ── Cart: variation tooltip ─────────────────────────────────── */
+
+.tf-variation-tooltip {
+	position: relative;
+	vertical-align: middle;
+}
+
+.tf-variation-trigger {
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	color: #969696;
+	cursor: pointer;
+	padding: 0 3px;
+	line-height: 1;
+	font-size: 14px;
+	transition: color 0.2s ease;
+	vertical-align: middle;
+}
+
+.tf-variation-trigger:hover,
+.tf-variation-trigger[aria-expanded="true"] {
+	color: #333333;
+	background-color: transparent;
+}
+
+.tf-variation-trigger:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.tf-variation-panel {
+	display: none;
+	position: absolute;
+	top: calc(100% + 6px);
+	left: 0;
+	z-index: 999;
+	background: #ffffff;
+	border: 1px solid #dadad6;
+	border-radius: 0;
+	padding: 10px 14px;
+	min-width: 200px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	white-space: nowrap;
+}
+
+.tf-variation-panel.tf-is-open {
+	display: block;
+}
+
+.tf-variation-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 4px 0;
+	border-bottom: 1px solid #e9e9e5;
+	font-size: 0.75rem;
+	font-family: Montserrat, sans-serif;
+}
+
+.tf-variation-row:last-child {
+	border-bottom: none;
+}
+
+.tf-variation-key {
+	color: #969696;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	font-size: 0.65rem;
+}
+
+.tf-variation-val {
+	color: #333333;
+	font-weight: 500;
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────── */

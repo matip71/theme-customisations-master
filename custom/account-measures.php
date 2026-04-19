@@ -22,7 +22,7 @@ function tf_render_account_measures_form() {
     $user_id = get_current_user_id();
     $medidas = tf_get_medidas_config();
 
-    echo '<h3>Mis Medidas</h3>';
+    echo '<h4>Mis Medidas</h4>';
     echo '<form method="post">';
     echo wp_nonce_field( 'guardar_medidas_personalizadas', 'medidas_personalizadas_nonce', true, false );
     echo '<table class="form-table">';
