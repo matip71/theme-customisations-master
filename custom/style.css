@@ -462,3 +462,25 @@ footer .site-info{
 .site-footer .footer-widgets .sfsi .norm_row .sfsi_wicons:first-child {
     margin-left: 0px !important;
 }
+
+/* ── Talle a medida: product sizing form ──────────────────────── */
+.tf-custom-sizing {
+    margin-bottom: 2em;
+}
+
+.tf-custom-sizing select {
+    width: 100%;
+}
+
+.tf-medidas-wrap {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background: #fafafa;
+}
+
+.tf-medidas-wrap input.input-text {
+    width: 100%;
+}
