@@ -453,15 +453,6 @@ footer .site-info {
 	padding: 1.5em !important;
 }
 
-.woocommerce-cart table.cart th,
-.woocommerce-cart table.cart tr.cart_item td {
-	padding: 0.5em;
-}
-
-.woocommerce-cart table.cart tr.cart_item td {
-	border-bottom: 1px solid #d5d5d5;
-	vertical-align: middle;
-}
 
 .woocommerce-checkout article .entry-header {
 	padding: 1.5em !important;
@@ -526,6 +517,131 @@ footer .site-info {
 	border: 1px solid #dadad6;
 	border-left: 3px solid #000000;
 	border-radius: 0 4px 4px 0;
+}
+
+
+/* ── Global Shop Tables (Cart & Checkout) ───────────────────────── */
+
+.woocommerce table.shop_table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 15px;
+	text-align: left;
+	border-radius: 0;
+}
+
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td {
+	padding: 12px 10px;
+	border: none !important;
+	vertical-align: middle;
+}
+
+.woocommerce table.shop_table thead th {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #969696;
+	border-bottom: 2px solid #000000 !important;
+	font-weight: normal;
+}
+
+.woocommerce table.shop_table thead th.product-total,
+.woocommerce table.shop_table thead th.product-subtotal {
+	text-align: right;
+}
+
+.woocommerce table.shop_table tbody td {
+	border-bottom: 1px solid #e9e9e5 !important;
+	color: #333333;
+}
+
+.woocommerce table.shop_table tbody td.product-total,
+.woocommerce table.shop_table tbody td.product-subtotal {
+	text-align: right;
+	color: #000000;
+}
+
+.woocommerce table.shop_table .product-quantity {
+	font-weight: 300;
+	color: #969696;
+	margin-left: 5px;
+}
+
+/* Cart Specific Enhancements */
+.woocommerce table.shop_table td.product-remove {
+	width: 30px;
+	text-align: center;
+}
+
+.woocommerce table.shop_table td.product-remove a.remove {
+	color: #969696 !important;
+	font-weight: 300;
+}
+
+.woocommerce table.shop_table td.product-thumbnail {
+	width: 80px;
+}
+
+.woocommerce table.shop_table td.product-thumbnail img {
+	max-width: 100%;
+	height: auto;
+}
+
+.woocommerce table.shop_table.cart tbody td {
+	padding-top: 18px;
+	padding-bottom: 18px;
+}
+
+/* Footer / Totals styling (Handles both thead/tbody/tfoot constraints) */
+.woocommerce table.shop_table tfoot th,
+.woocommerce .cart_totals table.shop_table tbody th {
+	font-weight: normal;
+	font-size: 0.9rem;
+	padding-right: 15px;
+	color: #727272;
+}
+
+.woocommerce table.shop_table tfoot td,
+.woocommerce .cart_totals table.shop_table tbody td {
+	text-align: right;
+	color: #333333;
+}
+
+.woocommerce table.shop_table tfoot tr,
+.woocommerce .cart_totals table.shop_table tbody tr {
+	border-bottom: 1px solid #e9e9e5 !important;
+}
+
+/* Shipping Method lists */
+.woocommerce table.shop_table ul#shipping_method {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.woocommerce table.shop_table ul#shipping_method li {
+	margin-bottom: 0px;
+}
+
+.woocommerce table.shop_table ul#shipping_method label {
+	color: #333333;
+	cursor: pointer;
+}
+
+/* Order Total Rows */
+.woocommerce table.shop_table tfoot tr.order-total th,
+.woocommerce table.shop_table tfoot tr.order-total td,
+.woocommerce .cart_totals table.shop_table tr.order-total th,
+.woocommerce .cart_totals table.shop_table tr.order-total td {
+	border-top: 2px solid #000000 !important;
+	border-bottom: none !important;
+	padding-top: 20px;
+	color: #000000;
+}
+
+.woocommerce table.shop_table tr.order-total td strong {
+	font-size: 1.25rem;
 }
 
 
