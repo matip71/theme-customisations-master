@@ -540,6 +540,7 @@ footer .site-info {
 	gap: 10px;
 	cursor: pointer;
 	user-select: none;
+	margin: 10px 0px 20px 0px;
 }
 
 .woocommerce-checkout .woocommerce-form__label-for-checkbox>span {
@@ -635,7 +636,7 @@ footer .site-info {
 	box-sizing: border-box;
 }
 
-.woocommerce-checkout form input[type="submit"] {
+.woocommerce-checkout .woocommerce-checkout input[type="submit"] {
 	width: auto;
 	padding: 10px 20px;
 	font-size: 16px;
@@ -675,6 +676,16 @@ footer .site-info {
 	border-radius: 0 4px 4px 0;
 }
 
+.woocommerce-checkout .woocommerce-form-coupon button[type="submit"],
+.woocommerce-checkout .woocommerce-form-login button[type="submit"] {
+	padding: 2px 10px;
+	display: block;
+}
+
+.woocommerce-checkout .woocommerce-form-login .lost_password {
+	font-size: 13px;
+}
+
 
 /* ── Global Shop Tables (Cart & Checkout) ───────────────────────── */
 
@@ -705,6 +716,17 @@ footer .site-info {
 .woocommerce table.shop_table thead th.product-total,
 .woocommerce table.shop_table thead th.product-subtotal {
 	text-align: right;
+}
+
+.woocommerce-checkout-review-order-table th.product-name,
+.woocommerce-checkout-review-order-table td.product-name {
+	width: 100%;
+}
+
+.woocommerce-checkout-review-order-table th.product-total,
+.woocommerce-checkout-review-order-table td.product-total {
+	width: 1%;
+	white-space: nowrap;
 }
 
 .woocommerce table.shop_table tbody td {
@@ -920,6 +942,35 @@ footer .site-info {
 	.woocommerce-cart article .entry-header .entry-title,
 	.woocommerce-checkout article .entry-header .entry-title {
 		margin-bottom: 0em;
+	}
+
+	/* ── Mobile Checkout Reordering ── */
+	form.checkout.woocommerce-checkout {
+		display: flex;
+		flex-direction: column;
+	}
+
+	form.checkout.woocommerce-checkout #order_review_heading {
+		order: 1;
+		margin: 0;
+	}
+
+	form.checkout.woocommerce-checkout #order_review {
+		display: contents;
+	}
+
+	form.checkout.woocommerce-checkout #order_review>.woocommerce-checkout-review-order-table {
+		order: 2;
+		margin-bottom: 30px;
+	}
+
+	form.checkout.woocommerce-checkout #customer_details {
+		order: 3;
+	}
+
+	form.checkout.woocommerce-checkout #order_review>#payment {
+		order: 4;
+		margin-top: 30px;
 	}
 
 	/* ── Mobile Cart Items ── */
