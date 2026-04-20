@@ -89,4 +89,19 @@ jQuery(document).ready(function ($) {
 
 	// Re-run every time WooCommerce refreshes the cart via AJAX
 	$(document.body).on('updated_cart_totals', initCartTooltips);
+
+	// ── Checkout: Fix abrupt hide on unchecked ─────────────────────
+	$(document).on('change', '.woocommerce-checkout #ship-to-different-address-checkbox', function () {
+		if (!$(this).is(':checked')) {
+			// WooCommerce performs an abrupt .hide(), we counter it by showing and sliding up smoothly.
+			$('div.shipping_address').show().slideUp(300);
+		}
+	});
+
+	$(document).on('change', '.woocommerce-checkout #createaccount', function () {
+		if (!$(this).is(':checked')) {
+			$('div.create-account').show().slideUp(300);
+		}
+	});
+
 });

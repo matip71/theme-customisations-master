@@ -214,7 +214,6 @@ footer .site-info {
 }
 
 
-
 /* ── Shop ──────────────────────────────────────────────────────── */
 
 .woocommerce-products-header h1 {
@@ -286,6 +285,7 @@ footer .site-info {
 	padding: 2px 15px 6px 15px;
 	font-variant: all-small-caps;
 }
+
 
 /* ── Product ──────────────────────────────────────────────────────── */
 
@@ -362,6 +362,70 @@ footer .site-info {
 }
 
 
+/* ── Checkout: custom checkbox ───────────────────────────────── */
+
+.woocommerce-checkout p.create-account {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox>span {
+	font-size: 14px;
+	color: #333333;
+}
+
+/* Oculta el checkbox nativo */
+.woocommerce-checkout .woocommerce-form__input-checkbox {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+/* Caja custom */
+.woocommerce-checkout .woocommerce-form__label-for-checkbox::before {
+	content: "";
+	display: inline-block;
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	border: 1.5px solid #333333;
+	background-color: #ffffff;
+	transition:
+		background-color 0.2s ease,
+		border-color 0.2s ease;
+}
+
+/* Estado checked: fondo negro + checkmark SVG */
+.woocommerce-checkout .woocommerce-form__input-checkbox:checked+span::before,
+.woocommerce-checkout .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:checked)::before {
+	background-color: #000000;
+	border-color: #000000;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpolyline points='1,5 4.5,8.5 11,1' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 11px 9px;
+}
+
+/* Focus accesible */
+.woocommerce-checkout .woocommerce-form__input-checkbox:focus+span~*,
+.woocommerce-checkout .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:focus)::before {
+	outline: 2px solid #333333;
+	outline-offset: 2px;
+}
+
+
+
 /* ── Cart/Mini Cart/ Checkout ──────────────────────────────────────────────────────── */
 
 .woocommerce-mini-cart .woocommerce-mini-cart-item {
@@ -417,6 +481,66 @@ footer .site-info {
 .woocommerce-checkout .woocommerce-info a:focus {
 	outline: none;
 }
+
+.woocommerce-checkout form input:not([type="submit"]),
+.woocommerce-checkout form select,
+.woocommerce-checkout form textarea {
+	background-color: #ffffff;
+	border: 1px solid #dadad6;
+	border-radius: 0;
+	padding: 5px 10px;
+	line-height: 1;
+	color: #333333;
+	font-family: Montserrat, sans-serif;
+	font-size: 14px;
+	letter-spacing: 0.03em;
+	outline: none;
+	transition:
+		background-color 0.5s ease,
+		border-color 0.5s ease,
+		box-shadow 0.5s ease;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.woocommerce-checkout form input[type="submit"] {
+	width: auto;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+
+.woocommerce-checkout form select {
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+
+.woocommerce-checkout form input:not([type="submit"]):focus,
+.woocommerce-checkout form select:focus,
+.woocommerce-checkout form textarea:focus {
+	background-color: #ffffff;
+	border-bottom: 2px solid #000000;
+	outline: none;
+	box-shadow: none;
+}
+
+.woocommerce-checkout .form-row {
+	margin-bottom: 10px;
+}
+
+/* ── Checkout: Expandable Sections (Account & Shipping) ──────── */
+
+.woocommerce-checkout div.create-account,
+.woocommerce-checkout div.shipping_address {
+	margin-top: 15px;
+	margin-bottom: 25px;
+	padding: 24px;
+	background-color: #fafafa;
+	border: 1px solid #dadad6;
+	border-left: 3px solid #000000;
+	border-radius: 0 4px 4px 0;
+}
+
 
 /* ── Cart: variation tooltip ─────────────────────────────────── */
 
