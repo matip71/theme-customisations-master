@@ -33,6 +33,10 @@ select {
 	border-radius: 4px;
 }
 
+form button.show-password-input {
+	padding: 2.5px 5px;
+}
+
 p.stars.selected a.active:before,
 p.stars:hover a:before,
 p.stars.selected a:not(.active):before,
@@ -164,11 +168,12 @@ footer .site-info {
 /* ── My Account ──────────────────────────────────────────────────────── */
 
 .woocommerce-account article .entry-header {
-	padding: 1.5em !important;
+	padding: 0 1.5em 1.5em 1.5em !important;
+	text-align: center;
 }
 
-.woocommerce-account article .entry-header {
-	padding: 0 1.5em 1.5em 1.5em !important;
+.woocommerce-account article .entry-title {
+	margin-bottom: 0px;
 }
 
 .woocommerce-account form input:not([type="submit"]),
@@ -216,6 +221,161 @@ footer .site-info {
 .woocommerce-account form table th {
 	padding: 0.5em 1em;
 	border-bottom: 1px solid #dadad6;
+}
+
+/* Auth Mobile Switcher */
+.tf-auth-switch {
+	display: flex;
+	margin-bottom: 20px;
+	border: 1px solid #dadad6;
+	background: #fcfcfc;
+}
+
+.tf-auth-btn {
+	flex: 1;
+	background: none !important;
+	border: none !important;
+	padding: 12px !important;
+	font-family: Montserrat, sans-serif !important;
+	font-size: 13px !important;
+	font-weight: 500;
+	text-transform: uppercase !important;
+	cursor: pointer;
+	color: #969696 !important;
+	margin: 0 !important;
+	transition: all 0.3s ease;
+}
+
+.tf-auth-btn.active {
+	background: #000000 !important;
+	color: #ffffff !important;
+}
+
+/* Hide specific columns based on active state in mobile */
+@media (max-width: 767px) {
+	.woocommerce-account #customer_login.tf-show-login .u-column2 {
+		display: none !important;
+	}
+
+	.woocommerce-account #customer_login.tf-show-register .u-column1 {
+		display: none !important;
+	}
+}
+
+/* Hide Switcher entirely on Desktop */
+@media (min-width: 768px) {
+	.tf-auth-switch {
+		display: none !important;
+	}
+}
+
+/* Login/Register Custom Layout */
+.woocommerce-account #customer_login {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 40px;
+	margin-bottom: 60px;
+}
+
+@media (min-width: 768px) {
+	.woocommerce-account #customer_login {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+}
+
+.woocommerce-account #customer_login .u-column1,
+.woocommerce-account #customer_login .u-column2 {
+	width: 100% !important;
+	float: none !important;
+	background: #fcfcfc;
+	padding: 40px;
+	border: 1px solid #dadad6;
+	box-sizing: border-box;
+}
+
+.woocommerce-account #customer_login h2 {
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-bottom: 25px;
+	padding-bottom: 15px;
+	border-bottom: 2px solid #000;
+}
+
+/* Login / Register Buttons */
+.woocommerce-account form .woocommerce-Button,
+.woocommerce-account form button[type="submit"] {
+	background-color: #000000 !important;
+	color: #ffffff !important;
+	border: 1px solid #000000;
+	border-radius: 0;
+	padding: 12px 25px !important;
+	font-size: 14px !important;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	width: 100%;
+	transition: all 0.3s ease;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+.woocommerce-account form .woocommerce-Button:hover,
+.woocommerce-account form button[type="submit"]:hover {
+	background-color: #ffffff !important;
+	color: #000000 !important;
+}
+
+/* ── Custom checkboxes (Account) ───────────────────────────────── */
+
+.woocommerce-account .woocommerce-form__label-for-checkbox {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	user-select: none;
+	margin-top: 10px;
+}
+
+.woocommerce-account .woocommerce-form__label-for-checkbox>span {
+	font-size: 14px;
+	color: #333333;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+.woocommerce-account .woocommerce-form__label-for-checkbox::before {
+	content: "";
+	display: inline-block;
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	border: 1.5px solid #333333;
+	background-color: #ffffff;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox:checked+span::before,
+.woocommerce-account .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:checked)::before {
+	background-color: #000000;
+	border-color: #000000;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpolyline points='1,5 4.5,8.5 11,1' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 11px 9px;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox:focus+span~*,
+.woocommerce-account .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:focus)::before {
+	outline: 2px solid #333333;
+	outline-offset: 2px;
 }
 
 
