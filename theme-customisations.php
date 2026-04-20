@@ -59,6 +59,7 @@ final class Theme_Customisations {
 	 * @return void
 	 */
 	public function theme_customisations_js() {
+		wp_enqueue_script( 'custom-variation-tooltip-js', plugins_url( '/custom/variation-tooltip.js', __FILE__ ), array( 'jquery' ), null, true );
 		wp_enqueue_script( 'custom-js', plugins_url( '/custom/custom.js', __FILE__ ), array( 'jquery' ), null, true );
 	}
 
