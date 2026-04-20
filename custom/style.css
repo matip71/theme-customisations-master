@@ -131,6 +131,35 @@ footer .site-info {
 	margin-left: 0px !important;
 }
 
+/* ── Info layer ──────────────────────────────────────────────────────── */
+
+.woocommerce-info {
+	background-color: #e9e9e5 !important;
+	color: #333333 !important;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-bottom: 1.5em;
+}
+
+.woocommerce-info a,
+.woocommerce-info::before {
+	color: #333333 !important;
+	font-weight: 100;
+}
+
+.woocommerce-info::before {
+	top: auto;
+}
+
+.woocommerce-info a.button {
+	border-left-color: #333333 !important;
+}
+
+.woocommerce-info a:hover {
+	color: #333333 !important;
+	text-decoration: underline !important;
+}
+
 
 /* ── My Account ──────────────────────────────────────────────────────── */
 
@@ -140,30 +169,6 @@ footer .site-info {
 
 .woocommerce-account article .entry-header {
 	padding: 0 1.5em 1.5em 1.5em !important;
-}
-
-.woocommerce-account .woocommerce-info {
-	background-color: #e9e9e5 !important;
-	color: #333333 !important;
-}
-
-.woocommerce-account .woocommerce-info a.button {
-	border-left-color: #333333 !important;
-}
-
-.woocommerce-account .woocommerce-info a,
-.woocommerce-account .woocommerce-info::before {
-	color: #333333 !important;
-	font-weight: 100;
-}
-
-.woocommerce-account .woocommerce-info a:hover {
-	color: #333333 !important;
-	text-decoration: underline !important;
-}
-
-.woocommerce-account a:focus {
-	outline: none;
 }
 
 .woocommerce-account form input:not([type="submit"]),
@@ -462,26 +467,6 @@ footer .site-info {
 	padding: 1.5em !important;
 }
 
-.woocommerce-checkout .woocommerce-info {
-	background-color: #e9e9e5 !important;
-	color: #333333 !important;
-}
-
-.woocommerce-checkout .woocommerce-info a,
-.woocommerce-checkout .woocommerce-info::before {
-	color: #333333 !important;
-	font-weight: 100;
-}
-
-.woocommerce-checkout .woocommerce-info a:hover {
-	color: #333333 !important;
-	text-decoration: underline !important;
-}
-
-.woocommerce-checkout .woocommerce-info a:focus {
-	outline: none;
-}
-
 .woocommerce-checkout form input:not([type="submit"]),
 .woocommerce-checkout form select,
 .woocommerce-checkout form textarea {
@@ -531,7 +516,9 @@ footer .site-info {
 /* ── Checkout: Expandable Sections (Account & Shipping) ──────── */
 
 .woocommerce-checkout div.create-account,
-.woocommerce-checkout div.shipping_address {
+.woocommerce-checkout div.shipping_address,
+.woocommerce-checkout .woocommerce-form-login,
+.woocommerce-checkout .woocommerce-form-coupon {
 	margin-top: 15px;
 	margin-bottom: 25px;
 	padding: 24px;
