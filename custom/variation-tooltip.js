@@ -7,7 +7,7 @@ var TFVariationTooltipModule = (function ($) {
 
 	var initVariationTooltips = function () {
 		// Only process raw <dl> elements — skip already-converted tooltips
-		$('.woocommerce-cart-form .variation, .woocommerce-checkout .variation').each(function () {
+		$('.woocommerce-cart-form .variation, .woocommerce-checkout .variation, .woocommerce-mini-cart .variation').each(function () {
 			var $dl = $(this);
 			var leaveTimer;
 
@@ -68,7 +68,7 @@ var TFVariationTooltipModule = (function ($) {
 		init: function () {
 			initVariationTooltips();
 			// Re-run every time WooCommerce refreshes the cart/checkout via AJAX
-			$(document.body).on('updated_cart_totals updated_checkout', initVariationTooltips);
+			$(document.body).on('updated_cart_totals updated_checkout added_to_cart removed_from_cart wc_fragments_refreshed wc_fragments_loaded updated_wc_div', initVariationTooltips);
 		}
 	};
 

@@ -732,14 +732,61 @@ footer .site-info {
 
 .woocommerce-mini-cart .woocommerce-mini-cart-item {
 	display: flex;
-	flex-direction: row-reverse;
-	justify-content: end;
-	padding-left: 0.5em !important;
-	padding-right: 0.5em !important;
+	align-items: center;
+	padding: 10px 10px !important;
 }
 
-.woocommerce-mini-cart-item a {
-	margin-left: 5px;
+.woocommerce-mini-cart .woocommerce-mini-cart-item:last-child {
+	border-bottom: none;
+}
+
+.woocommerce-mini-cart-item .tf-variation-tooltip {
+	order: 1;
+	margin: 0 5px 0 0;
+}
+
+.woocommerce-mini-cart-item a:not(.remove) {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	order: 2;
+	font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+	.woocommerce-mini-cart-item a:not(.remove) {
+		font-size: 12px;
+	}
+}
+
+.woocommerce-mini-cart-item a img {
+	order: 1;
+	margin-left: 10px !important;
+	margin-right: 0 !important;
+}
+
+.woocommerce-mini-cart-item span.quantity {
+	font-size: 12px;
+	order: 3;
+	flex: 0 0 70px;
+	text-align: right;
+	margin-right: 15px;
+}
+
+.woocommerce-mini-cart-item span.quantity .amount {
+	color: #333333;
+	font-weight: bold;
+}
+
+.woocommerce-mini-cart-item a.remove {
+	order: 4;
+	line-height: 1.4;
+	flex: 0 0 15px;
+	margin-left: 0 !important;
+}
+
+.woocommerce-mini-cart-item a.remove:hover::before {
+	color: #333333 !important;
 }
 
 .woocommerce-cart .site-content .woocommerce .wc-proceed-to-checkout {
@@ -1242,6 +1289,86 @@ table.order_details td.product-total {
 		display: block;
 		margin-top: 10px;
 	}
+
+	/* ── Mobile Orders Table ── */
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto auto;
+		grid-template-areas:
+			"number status"
+			"date total"
+			"actions actions";
+		padding: 15px;
+		margin-bottom: 15px;
+		border: 1px solid #dadad6 !important;
+		background-color: #fcfcfc;
+		gap: 10px;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th {
+		background-color: transparent;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th,
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order td {
+		display: flex;
+		flex-direction: column;
+		text-align: left !important;
+		padding: 0 !important;
+		border: none !important;
+	}
+
+	/*Re-style default WooCommerce mobile labels */
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order td::before,
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th::before {
+		font-size: 10px;
+		text-transform: uppercase;
+		color: #969696;
+		line-height: 1;
+		font-weight: normal;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders th.woocommerce-orders-table__cell-order-number {
+		grid-area: number;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders th.woocommerce-orders-table__cell-order-number a {
+		font-size: 16px;
+		font-weight: bold;
+		color: #000;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-status {
+		grid-area: status;
+		align-items: flex-end;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-date {
+		grid-area: date;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-total {
+		grid-area: total;
+		align-items: flex-end;
+		text-align: right !important;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions {
+		grid-area: actions;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions::before {
+		display: none !important;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions a.button {
+		text-align: center;
+		padding: 15px !important;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+		margin: 0;
+	}
 }
 
 @media (min-width: 768px) {
@@ -1411,7 +1538,6 @@ table.order_details td.product-total {
 	.woocommerce-account .storefront-breadcrumb {
 		padding-bottom: 0;
 	}
-
 }
 
 @media (min-width: 1024px) {
