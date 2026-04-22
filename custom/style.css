@@ -789,6 +789,19 @@ footer .site-info {
 	color: #333333 !important;
 }
 
+.woocommerce-mini-cart__total.total {
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid #000000;
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+.woocommerce-mini-cart__total.total .amount {
+	font-weight: 600;
+	color: #333333;
+}
+
 .woocommerce-cart .site-content .woocommerce .wc-proceed-to-checkout {
 	font-size: 14px;
 }
