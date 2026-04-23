@@ -1,0 +1,13 @@
+@use 'variables' as *;
+
+// ══════════════════════════════════════════════════════════
+// Menu — Nav menu, sub-menu
+// ══════════════════════════════════════════════════════════
+
+ul.menu.nav-menu ul.sub-menu .mega-sub-option {
+	letter-spacing: 1.5px;
+}
+
+ul.menu.nav-menu ul.sub-menu .mega-sub-option a {
+	font-size: 16px;
+}

@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+// ══════════════════════════════════════════════════════════
+// Footer — Widgets, site-info, social icons
+// ══════════════════════════════════════════════════════════
+
+footer {
+	padding-bottom: 1em !important;
+}
+
+footer .site-info {
+	padding-top: $spacing-sm;
+	padding-bottom: $spacing-sm;
+}
+
+.site-footer .footer-widgets {
+	padding-top: 0px;
+}
+
+.site-footer .footer-widgets .widget-title {
+	padding-bottom: 0px;
+}
+
+.site-footer .footer-widgets .widget_media_image {
+	margin-bottom: $spacing-lg;
+}
+
+.site-footer .footer-widgets .sfsi .norm_row .sfsi_wicons:first-child {
+	margin-left: 0px !important;
+}

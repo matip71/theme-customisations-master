@@ -1,0 +1,382 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Account — Navigation, Addresses, Login/Register,
+//           Auth Switcher, Forms, Orders
+// ══════════════════════════════════════════════════════════
+
+
+// ── Navigation ───────────────────────────────────────────
+
+.woocommerce-MyAccount-navigation li {
+	border-bottom: 1px solid $border;
+}
+
+.woocommerce-MyAccount-navigation li:last-child {
+	border-bottom: none;
+}
+
+.woocommerce-MyAccount-navigation li.is-active a {
+	padding-left: $spacing-sm !important;
+}
+
+.woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce-MyAccount-navigation a:hover {
+	background-color: $surface-card;
+	border-left: 2px solid $black;
+	border-bottom-color: transparent;
+}
+
+
+// ── Addresses ────────────────────────────────────────────
+
+.woocommerce-MyAccount-content p {
+	color: $text-tertiary;
+	margin-bottom: 25px;
+}
+
+.woocommerce-MyAccount-content .edit-account fieldset {
+	border-left: 2px solid $black;
+}
+
+.woocommerce-Addresses.addresses {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: $spacing-xl;
+	margin-top: $spacing-lg;
+}
+
+@include tablet {
+	.woocommerce-Addresses.addresses {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.woocommerce-account .woocommerce-MyAccount-content .u-column1,
+.woocommerce-account .woocommerce-MyAccount-content .u-column2 {
+	width: 100% !important;
+	float: none !important;
+	margin: 0;
+}
+
+.woocommerce-Address {
+	background: $surface-card;
+	border: 1px solid $border;
+	padding: $spacing-xl;
+}
+
+.woocommerce-Address-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid $black;
+	padding-bottom: $spacing-md;
+	margin-bottom: $spacing-lg;
+}
+
+.woocommerce-Address-title h3 {
+	margin: 0;
+	font-size: 1.1rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.woocommerce-Address-title .edit {
+	font-size: 12px;
+	text-transform: uppercase;
+	color: $text-muted;
+	border: 1px solid $border;
+	padding: $spacing-xs $spacing-md;
+	transition: all $transition-base;
+	line-height: normal;
+}
+
+.woocommerce-Address-title .edit:hover {
+	background-color: $black;
+	color: $white;
+	border-color: $black;
+}
+
+.woocommerce-Address address {
+	font-style: normal;
+	color: $text-primary;
+	line-height: 1.8;
+}
+
+
+// ── Account Page Header ─────────────────────────────────
+
+.woocommerce-account article .entry-header {
+	padding: 0 1.5em 1.5em 1.5em !important;
+	text-align: center;
+}
+
+.woocommerce-account article .entry-title {
+	margin-bottom: 0px;
+}
+
+
+// ── Account Form Inputs ──────────────────────────────────
+
+.woocommerce-account form input:not([type="submit"]),
+.woocommerce-account form select,
+.woocommerce-account form textarea {
+	@include input-base;
+	width: 100%;
+}
+
+.woocommerce-account form input[type="submit"] {
+	width: auto;
+	padding: $spacing-sm $spacing-lg;
+	font-size: 16px;
+}
+
+.woocommerce-account form select {
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+
+.woocommerce-account form input:not([type="submit"]):focus,
+.woocommerce-account form select:focus,
+.woocommerce-account form textarea:focus {
+	@include input-focus;
+}
+
+.woocommerce-account form table td,
+.woocommerce-account form table th {
+	padding: 0.5em 1em;
+	border-bottom: 1px solid $border;
+}
+
+
+// ── Auth Mobile Switcher ─────────────────────────────────
+
+.tf-auth-switch {
+	display: flex;
+	margin-bottom: $spacing-lg;
+	border: 1px solid $border;
+	background: $surface-card;
+}
+
+.tf-auth-btn {
+	flex: 1;
+	background: none !important;
+	border: none !important;
+	padding: 12px !important;
+	font-family: $font-family !important;
+	font-size: 13px !important;
+	font-weight: 500;
+	text-transform: uppercase !important;
+	cursor: pointer;
+	color: $text-muted !important;
+	margin: 0 !important;
+	transition: all $transition-base;
+}
+
+.tf-auth-btn.active {
+	background: $black !important;
+	color: $white !important;
+}
+
+@include mobile {
+	.woocommerce-account #customer_login.tf-show-login .u-column2 {
+		display: none !important;
+	}
+
+	.woocommerce-account #customer_login.tf-show-register .u-column1 {
+		display: none !important;
+	}
+
+	// Navigation - Mobile (Pills/Buttons)
+	.woocommerce-MyAccount-navigation {
+		margin-bottom: $spacing-xl;
+	}
+
+	.woocommerce-MyAccount-navigation ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $spacing-sm;
+		border-top: none !important;
+	}
+
+	.woocommerce-MyAccount-navigation li {
+		flex: 1 1 auto;
+		border-bottom: none !important;
+	}
+
+	.woocommerce-MyAccount-navigation a {
+		padding: $spacing-sm $spacing-md !important;
+		background-color: $surface-card;
+		border: 1px solid $border !important;
+		text-transform: uppercase;
+		font-size: 12px;
+		letter-spacing: 1px;
+		transition: all $transition-fast;
+		text-align: center;
+	}
+
+	.woocommerce-MyAccount-navigation li.is-active a {
+		background-color: $black !important;
+		color: $white !important;
+		border-color: $black !important;
+		box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.5);
+	}
+
+	.woocommerce-MyAccount-navigation a:hover {
+		background-color: $surface;
+		color: $black;
+	}
+}
+
+@include tablet {
+	.tf-auth-switch {
+		display: none !important;
+	}
+}
+
+
+// ── Login/Register Layout ────────────────────────────────
+
+.woocommerce-account #customer_login {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: $spacing-2xl;
+	margin-bottom: 60px;
+}
+
+@include tablet {
+	.woocommerce-account #customer_login {
+		grid-template-columns: 1fr 1fr;
+		gap: $spacing-2xl;
+	}
+}
+
+.woocommerce-account #customer_login .u-column1,
+.woocommerce-account #customer_login .u-column2 {
+	width: 100% !important;
+	float: none !important;
+	background: $surface-card;
+	padding: $spacing-2xl;
+	border: 1px solid $border;
+	box-sizing: border-box;
+}
+
+.woocommerce-account #customer_login h2 {
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-bottom: 25px;
+	padding-bottom: $spacing-md;
+	border-bottom: 2px solid $black;
+}
+
+
+// ── Login / Register Buttons ─────────────────────────────
+
+.woocommerce-account form .woocommerce-Button,
+.woocommerce-account form button[type="submit"] {
+	background-color: $black !important;
+	color: $white !important;
+	border: 1px solid $black;
+	border-radius: 0;
+	padding: 12px 25px !important;
+	font-size: 14px !important;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	width: 100%;
+	transition: all $transition-base;
+	cursor: pointer;
+	margin-top: $spacing-lg;
+}
+
+.woocommerce-account form .woocommerce-Button:hover,
+.woocommerce-account form button[type="submit"]:hover {
+	background-color: $white !important;
+	color: $black !important;
+}
+
+
+// ── Mobile Orders Table ──────────────────────────────────
+
+@include mobile {
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto auto;
+		grid-template-areas:
+			"number status"
+			"date total"
+			"actions actions";
+		padding: $spacing-md;
+		margin-bottom: $spacing-md;
+		border: 1px solid $border !important;
+		background-color: $surface-card;
+		gap: $spacing-sm;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th {
+		background-color: transparent;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th,
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order td {
+		display: flex;
+		flex-direction: column;
+		text-align: left !important;
+		padding: 0 !important;
+		border: none !important;
+	}
+
+	// Re-style default WooCommerce mobile labels
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order td::before,
+	.woocommerce table.shop_table_responsive.my_account_orders tbody tr.order th::before {
+		font-size: 10px;
+		text-transform: uppercase;
+		color: $text-muted;
+		line-height: 1;
+		font-weight: normal;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders th.woocommerce-orders-table__cell-order-number {
+		grid-area: number;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders th.woocommerce-orders-table__cell-order-number a {
+		font-size: 16px;
+		font-weight: bold;
+		color: $black;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-status {
+		grid-area: status;
+		align-items: flex-end;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-date {
+		grid-area: date;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-total {
+		grid-area: total;
+		align-items: flex-end;
+		text-align: right !important;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions {
+		grid-area: actions;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions::before {
+		display: none !important;
+	}
+
+	.woocommerce table.shop_table_responsive.my_account_orders td.woocommerce-orders-table__cell-order-actions a.button {
+		text-align: center;
+		padding: $spacing-md !important;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+		margin: 0;
+	}
+}

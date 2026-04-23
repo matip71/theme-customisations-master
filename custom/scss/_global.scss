@@ -1,0 +1,97 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Global — Base styles, Home, Breadcrumb
+// ══════════════════════════════════════════════════════════
+
+body {
+	font-family: $font-family;
+}
+
+button {
+	font-family: $font-family;
+}
+
+a:focus,
+input:focus,
+textarea:focus,
+button:focus {
+	outline: 1px solid $text-muted;
+}
+
+.site-branding a:focus {
+	outline: none;
+}
+
+a.cart-contents:focus {
+	outline: none;
+}
+
+select {
+	padding: $spacing-xs;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+form button.show-password-input {
+	padding: 2.5px $spacing-xs;
+}
+
+p.stars.selected a.active:before,
+p.stars:hover a:before,
+p.stars.selected a:not(.active):before,
+p.stars.selected a.active:before {
+	color: $black;
+}
+
+.overlay.animated span:before {
+	background-color: $surface;
+}
+
+
+// ── Home ─────────────────────────────────────────────────
+
+body.home .type-page .entry-header {
+	display: none;
+}
+
+body.home .site-main {
+	padding-top: 0px !important;
+}
+
+
+// ── Breadcrumb ───────────────────────────────────────────
+
+.woocommerce-cart .storefront-breadcrumb {
+	display: none;
+}
+
+.woocommerce-checkout .storefront-breadcrumb {
+	display: none;
+}
+
+.storefront-breadcrumb {
+	margin-bottom: 0px;
+}
+
+.storefront-breadcrumb nav {
+	color: $text-muted;
+	font-size: 13px;
+}
+
+.storefront-breadcrumb nav a {
+	text-decoration: none;
+	color: $black;
+}
+
+.storefront-breadcrumb .breadcrumb-separator::after {
+	content: "|";
+	top: 40%;
+	color: $text-tertiary;
+	opacity: .75;
+}
+
+.storefront-breadcrumb nav a::before {
+	display: none !important;
+}

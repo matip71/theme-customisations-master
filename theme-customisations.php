@@ -50,7 +50,9 @@ final class Theme_Customisations {
 	 * @return void
 	 */
 	public function theme_customisations_css() {
-		wp_enqueue_style( 'custom-css', plugins_url( '/custom/style.css', __FILE__ ) );
+		$css_file = plugin_dir_path( __FILE__ ) . 'custom/css/style.css';
+		$ver      = file_exists( $css_file ) ? filemtime( $css_file ) : '1.0.0';
+		wp_enqueue_style( 'custom-css', plugins_url( '/custom/css/style.css', __FILE__ ), [], $ver );
 	}
 
 	/**

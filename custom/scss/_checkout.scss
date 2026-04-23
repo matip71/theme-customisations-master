@@ -1,0 +1,96 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Checkout — Inputs, form rows, expandable sections,
+//            mobile reordering
+// ══════════════════════════════════════════════════════════
+
+.woocommerce-checkout form input:not([type="submit"]),
+.woocommerce-checkout form select,
+.woocommerce-checkout form textarea {
+	@include input-base;
+	font-size: 14px;
+	width: 100%;
+}
+
+.woocommerce-checkout .woocommerce-checkout input[type="submit"] {
+	width: auto;
+	padding: $spacing-sm $spacing-lg;
+	font-size: 16px;
+}
+
+.woocommerce-checkout form select {
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+
+.woocommerce-checkout form input:not([type="submit"]):focus,
+.woocommerce-checkout form select:focus,
+.woocommerce-checkout form textarea:focus {
+	@include input-focus;
+}
+
+.woocommerce-checkout .form-row {
+	margin-bottom: $spacing-sm;
+}
+
+
+// ── Expandable Sections (Account & Shipping) ─────────────
+
+.woocommerce-checkout div.create-account,
+.woocommerce-checkout div.shipping_address,
+.woocommerce-checkout .woocommerce-form-login,
+.woocommerce-checkout .woocommerce-form-coupon {
+	margin-top: $spacing-md;
+	margin-bottom: 25px;
+	padding: 24px;
+	background-color: $surface-light;
+	border: 1px solid $border;
+	border-left: 3px solid $black;
+	border-radius: 0 4px 4px 0;
+}
+
+.woocommerce-checkout .woocommerce-form-coupon button[type="submit"],
+.woocommerce-checkout .woocommerce-form-login button[type="submit"] {
+	padding: 2px $spacing-sm;
+	display: block;
+}
+
+.woocommerce-checkout .woocommerce-form-login .lost_password {
+	font-size: 13px;
+}
+
+
+// ── Mobile Checkout Reordering ───────────────────────────
+
+@include mobile {
+	form.checkout.woocommerce-checkout {
+		display: flex;
+		flex-direction: column;
+	}
+
+	form.checkout.woocommerce-checkout #order_review_heading {
+		order: 1;
+		margin: 0;
+	}
+
+	form.checkout.woocommerce-checkout #order_review {
+		display: contents;
+	}
+
+	form.checkout.woocommerce-checkout #order_review > .woocommerce-checkout-review-order-table {
+		order: 2;
+		margin-bottom: $spacing-xl;
+	}
+
+	form.checkout.woocommerce-checkout #customer_details {
+		order: 3;
+	}
+
+	form.checkout.woocommerce-checkout #order_review > #payment {
+		order: 4;
+		margin-top: $spacing-xl;
+	}
+}

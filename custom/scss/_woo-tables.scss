@@ -1,0 +1,124 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// WooCommerce Shop Tables — Shared styles (Cart, Checkout, Account)
+// ══════════════════════════════════════════════════════════
+
+.woocommerce table.shop_table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: $spacing-md;
+	text-align: left;
+	border-radius: 0;
+}
+
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td {
+	padding: 12px $spacing-sm;
+	border: none !important;
+	vertical-align: middle;
+}
+
+.woocommerce table.shop_table thead th {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: $text-muted;
+	border-bottom: 2px solid $black !important;
+	font-weight: normal;
+}
+
+.woocommerce table.shop_table thead th.product-total,
+.woocommerce table.shop_table thead th.product-subtotal {
+	text-align: right;
+}
+
+.woocommerce-checkout-review-order-table th.product-name,
+.woocommerce-checkout-review-order-table td.product-name,
+table.order_details th.product-name,
+table.order_details td.product-name {
+	width: 100%;
+}
+
+.woocommerce-checkout-review-order-table th.product-total,
+.woocommerce-checkout-review-order-table td.product-total,
+table.order_details th.product-total,
+table.order_details td.product-total {
+	width: 1%;
+	white-space: nowrap;
+}
+
+.woocommerce table.shop_table tbody td {
+	border-bottom: 1px solid $surface !important;
+	color: $text-primary;
+}
+
+.woocommerce table.shop_table tbody td.product-total,
+.woocommerce table.shop_table tbody td.product-subtotal {
+	text-align: right;
+	color: $black;
+}
+
+.woocommerce table.shop_table .product-quantity {
+	font-weight: 300;
+	color: $text-muted;
+	margin-left: $spacing-xs;
+}
+
+
+// ── Footer / Totals styling ──────────────────────────────
+
+.woocommerce table.shop_table tfoot th,
+.woocommerce .cart_totals table.shop_table tbody th {
+	font-weight: normal;
+	font-size: 0.9rem;
+	padding-right: $spacing-md;
+	color: $text-tertiary;
+}
+
+.woocommerce table.shop_table tfoot td,
+.woocommerce .cart_totals table.shop_table tbody td {
+	text-align: right;
+	color: $text-primary;
+}
+
+.woocommerce table.shop_table tfoot tr,
+.woocommerce .cart_totals table.shop_table tbody tr {
+	border-bottom: 1px solid $surface !important;
+}
+
+
+// ── Shipping Method lists ────────────────────────────────
+
+.woocommerce table.shop_table ul#shipping_method {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.woocommerce table.shop_table ul#shipping_method li {
+	margin-bottom: 0px;
+}
+
+.woocommerce table.shop_table ul#shipping_method label {
+	color: $text-primary;
+	cursor: pointer;
+}
+
+
+// ── Order Total Rows ─────────────────────────────────────
+
+.woocommerce table.shop_table tfoot tr.order-total th,
+.woocommerce table.shop_table tfoot tr.order-total td,
+.woocommerce .cart_totals table.shop_table tr.order-total th,
+.woocommerce .cart_totals table.shop_table tr.order-total td {
+	border-top: 2px solid $black !important;
+	border-bottom: none !important;
+	padding-top: $spacing-lg;
+	color: $black;
+}
+
+.woocommerce table.shop_table tr.order-total td strong {
+	font-size: 1.25rem;
+}

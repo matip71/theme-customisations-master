@@ -1,0 +1,11 @@
+{
+  "name": "theme-customisations-styles",
+  "private": true,
+  "scripts": {
+    "dev": "sass --watch scss/style.scss:css/style.css --style=expanded --source-map",
+    "build": "sass scss/style.scss:css/style.css --style=compressed --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

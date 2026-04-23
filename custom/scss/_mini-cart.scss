@@ -1,0 +1,109 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Mini Cart — Widget in header
+// ══════════════════════════════════════════════════════════
+
+.woocommerce-mini-cart .woocommerce-mini-cart-item {
+	display: flex;
+	align-items: center;
+	padding: $spacing-sm $spacing-sm !important;
+}
+
+.woocommerce-mini-cart .woocommerce-mini-cart-item:last-child {
+	border-bottom: none;
+}
+
+.woocommerce-mini-cart-item .tf-variation-tooltip {
+	order: 1;
+	margin: 0 $spacing-xs 0 0;
+}
+
+.woocommerce-mini-cart-item a:not(.remove) {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	order: 2;
+	font-size: 14px;
+}
+
+@include mobile {
+	.woocommerce-mini-cart-item a:not(.remove) {
+		font-size: 12px;
+	}
+}
+
+.woocommerce-mini-cart-item a img {
+	order: 1;
+	margin-left: $spacing-sm !important;
+	margin-right: 0 !important;
+}
+
+.woocommerce-mini-cart-item span.quantity {
+	font-size: 12px;
+	order: 3;
+	flex: 0 0 70px;
+	text-align: right;
+	margin-right: $spacing-md;
+}
+
+.woocommerce-mini-cart-item span.quantity .amount {
+	color: $text-primary;
+	font-weight: bold;
+}
+
+.woocommerce-mini-cart-item a.remove {
+	order: 4;
+	line-height: 1.4;
+	flex: 0 0 15px;
+	margin-left: 0 !important;
+}
+
+.woocommerce-mini-cart-item a.remove:hover::before {
+	color: $text-primary !important;
+}
+
+.woocommerce-mini-cart__total.total {
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid $black;
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+.woocommerce-mini-cart__total.total .amount {
+	font-weight: 600;
+	color: $text-primary;
+}
+
+
+// ── Desktop Mini Cart Widths ─────────────────────────────
+
+@include tablet {
+	.woocommerce-mini-cart .woocommerce-mini-cart-item a {
+		width: 70%;
+	}
+
+	.woocommerce-mini-cart .woocommerce-mini-cart-item a.remove {
+		width: 8%;
+	}
+
+	.woocommerce-mini-cart .woocommerce-mini-cart-item span.quantity {
+		width: 22%;
+	}
+}
+
+@include desktop {
+	.woocommerce-mini-cart .woocommerce-mini-cart-item a {
+		width: 75%;
+	}
+
+	.woocommerce-mini-cart .woocommerce-mini-cart-item a.remove {
+		width: 5%;
+	}
+
+	.woocommerce-mini-cart .woocommerce-mini-cart-item span.quantity {
+		width: 20%;
+	}
+}

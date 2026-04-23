@@ -1,0 +1,71 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Custom Checkboxes — Account + Checkout
+// ══════════════════════════════════════════════════════════
+
+
+// ── Account Checkboxes ───────────────────────────────────
+
+.woocommerce-account .woocommerce-form__label-for-checkbox {
+	@include checkbox-label;
+	margin-top: $spacing-sm;
+}
+
+.woocommerce-account .woocommerce-form__label-for-checkbox > span {
+	@include checkbox-label-span;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox {
+	@include checkbox-hide-native;
+}
+
+.woocommerce-account .woocommerce-form__label-for-checkbox::before {
+	@include checkbox-box;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox:checked+span::before,
+.woocommerce-account .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:checked)::before {
+	@include checkbox-checked;
+}
+
+.woocommerce-account .woocommerce-form__input-checkbox:focus+span~*,
+.woocommerce-account .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:focus)::before {
+	@include checkbox-focus;
+}
+
+
+// ── Checkout Checkboxes ──────────────────────────────────
+
+.woocommerce-checkout p.create-account {
+	margin-top: $spacing-sm;
+	margin-bottom: 0;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox {
+	@include checkbox-label;
+	margin: $spacing-sm 0px $spacing-lg 0px;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox > span {
+	@include checkbox-label-span;
+}
+
+.woocommerce-checkout .woocommerce-form__input-checkbox {
+	@include checkbox-hide-native;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox::before {
+	@include checkbox-box;
+}
+
+.woocommerce-checkout .woocommerce-form__input-checkbox:checked+span::before,
+.woocommerce-checkout .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:checked)::before {
+	@include checkbox-checked;
+}
+
+.woocommerce-checkout .woocommerce-form__input-checkbox:focus+span~*,
+.woocommerce-checkout .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:focus)::before {
+	@include checkbox-focus;
+}
