@@ -1,0 +1,32 @@
+@use 'variables' as *;
+
+// ══════════════════════════════════════════════════════════
+// WooCommerce Info Banners
+// ══════════════════════════════════════════════════════════
+
+.woocommerce-info {
+	background-color: $surface !important;
+	color: $text-primary !important;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-bottom: 1.5em;
+}
+
+.woocommerce-info a,
+.woocommerce-info::before {
+	color: $text-primary !important;
+	font-weight: 100;
+}
+
+.woocommerce-info::before {
+	top: auto;
+}
+
+.woocommerce-info a.button {
+	border-left-color: $text-primary !important;
+}
+
+.woocommerce-info a:hover {
+	color: $text-primary !important;
+	text-decoration: underline !important;
+}

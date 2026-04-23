@@ -1,0 +1,75 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Shop — Product grid, sorting, product cards
+// ══════════════════════════════════════════════════════════
+
+.woocommerce-products-header h1 {
+	font-size: 2em;
+	letter-spacing: 1px;
+}
+
+.storefront-sorting {
+	margin-bottom: 1em;
+}
+
+.woocommerce-products-header {
+	padding-bottom: $spacing-sm !important;
+}
+
+.woocommerce-noreviews::before {
+	color: $text-tertiary !important;
+}
+
+.woocommerce-no-products-found > div {
+	background-color: $surface !important;
+	color: $text-tertiary !important;
+	margin-bottom: 25vh;
+}
+
+.woocommerce-no-products-found .woocommerce-info::before {
+	color: $text-tertiary !important;
+}
+
+.woocommerce-page .site-content ul.products li {
+	padding: $spacing-sm;
+}
+
+.woocommerce-page .site-content ul.products li.product img {
+	width: 100%;
+}
+
+.woocommerce-page .site-content ul.products li:hover {
+	border: 1px solid $border;
+}
+
+.woocommerce-page .site-content li.product a:focus {
+	outline: none;
+}
+
+.woocommerce-page .site-content div.product .product_title {
+	font-size: 2rem;
+	font-variant: all-small-caps;
+	margin-bottom: $spacing-sm;
+}
+
+.woocommerce-page .site-content div.product .price {
+	margin: $spacing-sm 0px $spacing-lg 0px;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.woocommerce-page .site-content div.product .variations .reset_variations {
+	color: $text-muted;
+}
+
+.woocommerce-page .site-content div.product .woocommerce-tabs a {
+	color: $text-muted;
+}
+
+.woocommerce-page .site-content div.product .single_add_to_cart_button {
+	font-size: 1.5rem;
+	padding: 2px $spacing-md 6px $spacing-md;
+	font-variant: all-small-caps;
+}

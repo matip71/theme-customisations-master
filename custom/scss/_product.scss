@@ -1,0 +1,64 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Product — Detail page, reviews, sizing form
+// ══════════════════════════════════════════════════════════
+
+.woocommerce-noreviews {
+	background-color: $surface !important;
+	color: $text-tertiary !important;
+}
+
+
+// ── Talle a medida: product sizing form ──────────────────
+
+.tf-custom-sizing {
+	margin-bottom: 2em;
+}
+
+.tf-custom-sizing > p {
+	margin-bottom: 1em;
+}
+
+.tf-custom-sizing select {
+	width: auto;
+}
+
+.tf-medidas-wrap {
+	display: none;
+	padding: $spacing-sm;
+	border: 1px solid $border;
+	border-radius: 4px;
+	background: $surface-light;
+}
+
+.tf-medidas-wrap p {
+	margin-bottom: $spacing-sm;
+}
+
+.tf-medidas-wrap p.form-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tf-medidas-wrap label,
+.tf-medidas-wrap input {
+	width: auto;
+}
+
+.tf-medidas-wrap label {
+	min-width: 50%;
+}
+
+.tf-medidas-wrap input {
+	max-width: 35%;
+}
+
+.tf-medidas-wrap input:not([type="submit"]) {
+	@include input-base;
+}
+
+.tf-medidas-wrap input:not([type="submit"]):focus {
+	@include input-focus;
+}

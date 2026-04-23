@@ -1,0 +1,39 @@
+// ══════════════════════════════════════════════════════════
+// Design Tokens
+// ══════════════════════════════════════════════════════════
+
+// ── Colors ───────────────────────────────────────────────
+$black:         #000000;
+$white:         #ffffff;
+$text-primary:  #333333;
+$text-muted:    #969696;
+$text-tertiary: #727272;
+
+$border:        #dadad6;
+$surface:       #e9e9e5;
+$surface-card:  #fcfcfc;
+$surface-alt:   #f1f1f1;
+$surface-light: #fafafa;
+
+// ── Typography ───────────────────────────────────────────
+$font-family: Montserrat, Sans-serif, "Helvetica Neue", Arial, sans-serif,
+              "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+// ── Breakpoints ──────────────────────────────────────────
+$bp-mobile:  767px;
+$bp-tablet:  768px;
+$bp-desktop: 1024px;
+$bp-wide:    1500px;
+
+// ── Spacing ──────────────────────────────────────────────
+$spacing-xs:  5px;
+$spacing-sm:  10px;
+$spacing-md:  15px;
+$spacing-lg:  20px;
+$spacing-xl:  30px;
+$spacing-2xl: 40px;
+
+// ── Transitions ──────────────────────────────────────────
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;
