@@ -31,7 +31,7 @@ final class Theme_Customisations {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'theme_customisations_setup' ), -1 );
-		require_once( 'custom/functions.php' );
+		require_once( 'custom/php/functions.php' );
 	}
 
 	/**
@@ -61,16 +61,28 @@ final class Theme_Customisations {
 	 * @return void
 	 */
 	public function theme_customisations_js() {
-		wp_enqueue_script( 'custom-variation-tooltip-js', plugins_url( '/custom/variation-tooltip.js', __FILE__ ), array( 'jquery' ), null, true );
-		wp_enqueue_script( 'custom-js', plugins_url( '/custom/custom.js', __FILE__ ), array( 'jquery' ), null, true );
+		$js_dir = plugin_dir_path( __FILE__ ) . 'custom/js/';
+		$js_url = plugins_url( '/custom/js/', __FILE__ );
+
+		$scripts = array(
+			'tf-header'            => 'header.js',
+			'tf-product'           => 'product.js',
+			'tf-checkout'          => 'checkout.js',
+			'tf-account'           => 'account.js',
+			'tf-variation-tooltip' => 'variation-tooltip.js',
+		);
+
+		foreach ( $scripts as $handle => $file ) {
+			$path = $js_dir . $file;
+			$ver  = file_exists( $path ) ? filemtime( $path ) : '1.0.0';
+			wp_enqueue_script( $handle, $js_url . $file, array( 'jquery' ), $ver, true );
+		}
 	}
 
 	/**
 	 * Look in this plugin for template files first.
 	 * This works for the top level templates (IE single.php, page.php etc). However, it doesn't work for
-	 * template parts yet (content.php, header.php etc).
-	 *
-	 * Relevant trac ticket; https://core.trac.wordpress.org/ticket/13239
+	 * template parts (content.php, header.php etc).
 	 *
 	 * @param  string $template template string.
 	 * @return string $template new template string.
