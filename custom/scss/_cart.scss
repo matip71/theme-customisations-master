@@ -5,8 +5,8 @@
 // Cart — Table, actions, coupon, quantity, totals
 // ══════════════════════════════════════════════════════════
 
-.woocommerce-cart .site-content .woocommerce .wc-proceed-to-checkout {
-	font-size: 14px;
+.woocommerce-cart .site-content .woocommerce .wc-proceed-to-checkout a {
+	@include submit-button-base;
 }
 
 .woocommerce-cart article .entry-header,
@@ -60,6 +60,7 @@
 // ── Mobile Cart Items ────────────────────────────────────
 
 @include mobile {
+
 	.woocommerce-cart article .entry-header,
 	.woocommerce-checkout article .entry-header {
 		padding-bottom: 0em !important;

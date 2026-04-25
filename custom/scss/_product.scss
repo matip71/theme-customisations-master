@@ -10,6 +10,23 @@
 	color: $text-tertiary !important;
 }
 
+.woocommerce-variation-price {
+	display: none !important;
+}
+
+.woocommerce-message {
+	margin-top: 0 !important;
+}
+
+.storefront-sticky-add-to-cart__content-button {
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.single_add_to_cart_button {
+	font-weight: 500;
+}
+
 
 // ── Talle a medida: product sizing form ──────────────────
 
@@ -17,7 +34,7 @@
 	margin-bottom: 2em;
 }
 
-.tf-custom-sizing > p {
+.tf-custom-sizing>p {
 	margin-bottom: 1em;
 }
 

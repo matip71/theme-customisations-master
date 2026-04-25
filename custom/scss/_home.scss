@@ -1,0 +1,224 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Home — Hero, homepage-specific overrides
+// ══════════════════════════════════════════════════════════
+
+// ── Layout ───────────────────────────────────────────────
+
+body.home .site-main {
+	padding-top: 0px !important;
+}
+
+body.home .type-page .entry-header {
+	display: none;
+}
+
+// Hide the empty "Coming" post section
+body.home #post-484 {
+	display: none;
+}
+
+// ── Hero Section ─────────────────────────────────────────
+
+.sph-hero {
+	min-height: 100vh !important;
+	height: 100vh !important;
+	background-size: cover !important;
+	background-position: center center !important;
+
+	// Fix: prevent hero from exceeding viewport on 768px–1500px displays.
+	// The plugin applies negative margins to go "full-bleed" but this causes
+	// the section to be wider than the viewport on medium screens.
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	width: 100vw !important;
+	position: relative !important;
+	left: 50% !important;
+	transform: translateX(-50%) !important;
+	box-sizing: border-box !important;
+}
+
+// Gradient overlay: stronger at bottom for text legibility
+.sph-hero .overlay.animated {
+	background: linear-gradient(to bottom,
+			rgba(0, 0, 0, 0.15) 0%,
+			rgba(0, 0, 0, 0.35) 50%,
+			rgba(0, 0, 0, 0.6) 100%) !important;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-evenly;
+	padding-bottom: 12vh;
+	min-height: 100vh;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+// Hero heading
+.sph-hero .overlay.animated h1 {
+	font-family: $font-family;
+	font-weight: 300;
+	font-size: clamp(2rem, 5vw, 4rem);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	color: $white !important;
+	line-height: 1.2;
+	margin-bottom: $spacing-lg;
+
+	// Remove the default Storefront Parallax Hero ::after decoration
+	&::after {
+		display: none !important;
+	}
+
+	span {
+		display: block;
+	}
+}
+
+// Entrance animation + positioning fix
+.sph-hero .sph-inner {
+	animation: heroFadeIn 1.2s ease-out both;
+	// Fix: plugin sets position:absolute + 9.505em padding at 768px+,
+	// which pushes text off-screen on medium displays.
+	position: static !important;
+	transform: none !important;
+	margin-bottom: 120px;
+	margin-left: 150px;
+	padding: 0 5vw !important;
+	//max-width: 900px;
+	box-sizing: border-box;
+}
+
+@include desktop {
+	.sph-hero .sph-inner {
+		margin-left: 200px;
+	}
+}
+
+@include wide {
+	.sph-hero .sph-inner {
+		margin-left: 280px;
+	}
+}
+
+@include ultra-wide {
+	.sph-hero .sph-inner {
+		margin-left: 550px;
+	}
+}
+
+@keyframes heroFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+// CTA — Ghost button
+.sph-hero .sph-hero-content a.button {
+	display: inline-block;
+	background-color: transparent !important;
+	border: 1.5px solid $white !important;
+	color: $white !important;
+	font-family: $font-family;
+	font-size: 0.85rem;
+	font-weight: 500;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	padding: 14px 48px;
+	transition:
+		background-color $transition-base,
+		color $transition-base,
+		border-color $transition-base;
+
+	&:hover,
+	&:focus {
+		background-color: $white !important;
+		color: $black !important;
+		border-color: $white !important;
+	}
+}
+
+// ── Homepage Products Sections ────────────────────────────
+
+
+// Section titles — centered, tracked, with accent line
+.storefront-product-section .section-title {
+	font-family: $font-family;
+	font-weight: 300;
+	font-size: clamp(1.4rem, 3vw, 2rem);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	text-align: center;
+	color: $text-primary;
+	position: relative;
+	padding-bottom: 20px;
+
+	// Thin centered accent line
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+		height: 2px;
+		background-color: $text-primary;
+	}
+}
+
+// ── Homepage Footer Spacing ──────────────────────────────
+
+body.home .site-content {
+	margin-bottom: 0;
+}
+
+// ── Responsive ───────────────────────────────────────────
+@include mobile {
+
+	// Hero
+	.sph-hero {
+		min-height: 80vh !important;
+		height: 80vh !important;
+
+		.sph-inner {
+			margin-bottom: unset;
+			margin-left: unset;
+		}
+	}
+
+	.sph-hero .overlay.animated {
+		padding-bottom: 8vh;
+		align-items: center;
+		min-height: 80vh;
+	}
+
+	.sph-hero .overlay.animated h1 {
+		font-size: 1.6rem;
+		letter-spacing: 0.1em;
+	}
+
+	.sph-hero .sph-hero-content a.button {
+		padding: 12px 32px;
+		font-size: 0.8rem;
+		width: 100%;
+		text-align: center;
+	}
+
+	// Product sections
+	.storefront-product-section {
+		padding: 40px 0 20px;
+	}
+
+	.storefront-product-section .section-title {
+		font-size: 1.2rem;
+		letter-spacing: 0.12em;
+		margin-bottom: 30px;
+	}
+}

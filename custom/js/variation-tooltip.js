@@ -1,11 +1,11 @@
 /**
- * Theme Customisations - Cart JavaScript
- * Separated module for all Cart-related functionality.
+ * Variation Tooltip Module
+ * Converts variation detail lists into interactive tooltips in cart/checkout/mini-cart.
  */
-var TFVariationTooltipModule = (function ($) {
+(function ($) {
 	'use strict';
 
-	var initVariationTooltips = function () {
+	function initVariationTooltips() {
 		// Only process raw <dl> elements — skip already-converted tooltips
 		$('.woocommerce-cart-form .variation, .woocommerce-checkout .variation, .woocommerce-mini-cart .variation').each(function () {
 			var $dl = $(this);
@@ -61,20 +61,12 @@ var TFVariationTooltipModule = (function ($) {
 			$('.tf-variation-panel.tf-is-open').removeClass('tf-is-open');
 			$('.tf-variation-trigger[aria-expanded="true"]').attr('aria-expanded', 'false');
 		});
-	};
+	}
 
-	// ── Public API ──────────────────────────────────────────────────
-	return {
-		init: function () {
-			initVariationTooltips();
-			// Re-run every time WooCommerce refreshes the cart/checkout via AJAX
-			$(document.body).on('updated_cart_totals updated_checkout added_to_cart removed_from_cart wc_fragments_refreshed wc_fragments_loaded updated_wc_div', initVariationTooltips);
-		}
-	};
+	$(function () {
+		initVariationTooltips();
+		// Re-run every time WooCommerce refreshes the cart/checkout via AJAX
+		$(document.body).on('updated_cart_totals updated_checkout added_to_cart removed_from_cart wc_fragments_refreshed wc_fragments_loaded updated_wc_div', initVariationTooltips);
+	});
 
 })(jQuery);
-
-// Boot up the application when DOM is ready
-jQuery(document).ready(function () {
-	TFVariationTooltipModule.init();
-});

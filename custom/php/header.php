@@ -1,29 +1,16 @@
 <?php
 /**
- * Functions.php — Orchestrator.
+ * Header customisations.
+ * Storefront-specific header icons and user dropdown.
  *
- * Loads all feature modules and registers non-WooCommerce hooks.
- * Keep this file thin: no business logic, just wiring.
- *
- * @package  Theme_Customisations
- * @author   WooThemes
- * @since    1.0.0
+ * @package Theme_Customisations
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// ── Load modules (order matters: helpers first) ────────────────────
-require_once __DIR__ . '/helpers.php';
-require_once __DIR__ . '/acf-fields.php';
-require_once __DIR__ . '/class-tf-product-sizing.php';
-require_once __DIR__ . '/account-measures.php';
-
-// ── Boot WooCommerce sizing integration ────────────────────────────
-new TF_Product_Sizing();
-
-// ── Header icons (Storefront-specific, unrelated to measures) ──────
+// ── Header icons (Storefront-specific) ─────────────────────────────
 add_action( 'storefront_before_header', 'custom_header_icons', 10 );
 
 function custom_header_icons() {

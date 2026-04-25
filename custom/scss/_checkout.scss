@@ -14,10 +14,9 @@
 	width: 100%;
 }
 
-.woocommerce-checkout .woocommerce-checkout input[type="submit"] {
-	width: auto;
+.woocommerce-checkout .woocommerce-checkout button[type="submit"] {
+	@include submit-button-base;
 	padding: $spacing-sm $spacing-lg;
-	font-size: 16px;
 }
 
 .woocommerce-checkout form select {
@@ -80,7 +79,7 @@
 		display: contents;
 	}
 
-	form.checkout.woocommerce-checkout #order_review > .woocommerce-checkout-review-order-table {
+	form.checkout.woocommerce-checkout #order_review>.woocommerce-checkout-review-order-table {
 		order: 2;
 		margin-bottom: $spacing-xl;
 	}
@@ -89,7 +88,7 @@
 		order: 3;
 	}
 
-	form.checkout.woocommerce-checkout #order_review > #payment {
+	form.checkout.woocommerce-checkout #order_review>#payment {
 		order: 4;
 		margin-top: $spacing-xl;
 	}
