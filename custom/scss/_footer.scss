@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ══════════════════════════════════════════════════════════
 // Footer — Widgets, site-info, social icons
@@ -23,6 +24,26 @@ footer .site-info {
 
 .site-footer .footer-widgets .widget_media_image {
 	margin-bottom: $spacing-lg;
+}
+
+.site-footer .footer-widgets .block .widget.sfsi {
+	margin-bottom: 0px;
+}
+
+@include tablet {
+	.site-footer .footer-widgets .footer-widget-4 {
+		width: 40% !important;
+	}
+
+	.site-footer .footer-widgets .widget_custom_html {
+		margin-bottom: 0px;
+	}
+}
+
+@include wide {
+	.site-footer .footer-widgets .footer-widget-4 {
+		width: 30% !important;
+	}
 }
 
 .site-footer .footer-widgets .sfsi .norm_row .sfsi_wicons:first-child {

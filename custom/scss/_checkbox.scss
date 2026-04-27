@@ -13,7 +13,7 @@
 	margin-top: $spacing-sm;
 }
 
-.woocommerce-account .woocommerce-form__label-for-checkbox > span {
+.woocommerce-account .woocommerce-form__label-for-checkbox>span {
 	@include checkbox-label-span;
 }
 
@@ -48,7 +48,7 @@
 	margin: $spacing-sm 0px $spacing-lg 0px;
 }
 
-.woocommerce-checkout .woocommerce-form__label-for-checkbox > span {
+.woocommerce-checkout .woocommerce-form__label-for-checkbox>span {
 	@include checkbox-label-span;
 }
 
@@ -68,4 +68,45 @@
 .woocommerce-checkout .woocommerce-form__input-checkbox:focus+span~*,
 .woocommerce-checkout .woocommerce-form__label-for-checkbox:has(.woocommerce-form__input-checkbox:focus)::before {
 	@include checkbox-focus;
+}
+
+.woocommerce-checkout form.checkout .col2-set .col-1,
+.woocommerce-checkout form.checkout .col2-set .col-2 {
+	margin-bottom: 0px;
+}
+
+// ── Omnisend Newsletter Checkbox ─────────────────────────
+
+#omnisend_newsletter_checkbox_field {
+	margin: $spacing-sm 0px;
+}
+
+#omnisend_newsletter_checkbox_field label.checkbox {
+	@include checkbox-label;
+}
+
+#omnisend_newsletter_checkbox_field label.checkbox {
+	font-size: 14px;
+	color: $text-primary;
+}
+
+#omnisend_newsletter_checkbox_field .input-checkbox {
+	@include checkbox-hide-native;
+}
+
+#omnisend_newsletter_checkbox_field label.checkbox::before {
+	@include checkbox-box;
+}
+
+#omnisend_newsletter_checkbox_field label.checkbox:has(.input-checkbox:checked)::before {
+	@include checkbox-checked;
+}
+
+#omnisend_newsletter_checkbox_field label.checkbox:has(.input-checkbox:focus)::before {
+	@include checkbox-focus;
+}
+
+#omnisend_newsletter_checkbox_field .optional {
+	color: $text-muted;
+	font-size: 12px;
 }
