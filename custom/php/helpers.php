@@ -102,3 +102,42 @@ function tf_product_requires_sizing( $product_id ) {
 
     return $has_standard || $has_custom;
 }
+
+/**
+ * Normalise a raw talle value coming from either our custom select
+ * (value = "a_medida") or WooCommerce's variation attribute
+ * (value = "A medida" for custom attrs, "a-medida" for taxonomy slugs).
+ *
+ * Standard sizes (S, M, L…) pass through unchanged.
+ *
+ * @param  string $value  Raw value from POST.
+ * @return string         Normalised value.
+ */
+function tf_normalize_talle_value( $value ) {
+    $check = strtolower( str_replace( array( ' ', '-' ), '_', trim( $value ) ) );
+    return 'a_medida' === $check ? 'a_medida' : $value;
+}
+
+/**
+ * Read the selected talle from the current POST request.
+ *
+ * Checks our custom field first, then falls back to WooCommerce's
+ * variation attribute. Normalises "A medida" variants to "a_medida".
+ *
+ * @return string  The talle value, or empty string if none submitted.
+ */
+function tf_get_posted_talle() {
+    // 1. Our custom select (non-variation products).
+    if ( ! empty( $_POST['tf_talle'] ) ) {
+        return sanitize_text_field( wp_unslash( $_POST['tf_talle'] ) );
+    }
+
+    // 2. WooCommerce variation attribute (when talle is a variation).
+    if ( ! empty( $_POST['attribute_talle'] ) ) {
+        return tf_normalize_talle_value(
+            sanitize_text_field( wp_unslash( $_POST['attribute_talle'] ) )
+        );
+    }
+
+    return '';
+}
