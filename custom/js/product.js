@@ -21,7 +21,9 @@
 		var originalPriceHTML = $mainPrice.html();
 
 		$form.on('show_variation', function (e, variation) {
-			$mainPrice.html(variation.price_html);
+			if (variation.price_html) {
+				$mainPrice.html(variation.price_html);
+			}
 		});
 
 		$form.on('reset_data', function () {
@@ -49,8 +51,10 @@
 		var originalHref = $stickyBtn.attr('href');
 
 		$form.on('show_variation', function (e, variation) {
-			// 1. Update price
-			$stickyPrice.html(variation.price_html);
+			// 1. Update price (only if WooCommerce sends a non-empty value)
+			if (variation.price_html) {
+				$stickyPrice.html(variation.price_html);
+			}
 
 			// 2. If variation is in stock, convert to add-to-cart button
 			if (variation.is_in_stock) {
@@ -80,30 +84,54 @@
 
 	/**
 	 * Show/hide custom sizing fields based on the selected size.
-	 * - Shows fields when "A medida" is selected.
-	 * - Hides fields when any other size is selected.
-	 * - Makes fields required/optional accordingly.
+	 *
+	 * Works with either select that controls talle:
+	 *   - #tf_talle           → our custom select (talle is NOT a variation)
+	 *   - [attribute_talle]   → WooCommerce's select (talle IS a variation)
+	 *
+	 * Shows the "medidas" panel when "A medida" is selected,
+	 * hides it otherwise. Makes measure inputs required accordingly.
 	 */
 	function bindCustomSizing() {
-		var $talle = $('#tf_talle');
 		var $wrap = $('#tf_medidas_wrap');
+		if (!$wrap.length) return;
 
-		if ($talle.length > 0 && $wrap.length > 0) {
-			var toggleMedidas = function (animate) {
-				var isCustomSelected = $talle.val() === 'a_medida';
-				if (animate) {
-					isCustomSelected ? $wrap.slideDown(500) : $wrap.slideUp(500);
-				} else {
-					$wrap.toggle(isCustomSelected);
-				}
-				$wrap.find('input').each(function () {
-					$(this).prop('required', isCustomSelected);
-				});
-			};
-
-			$talle.on('change', function () { toggleMedidas(true); });
-			toggleMedidas(false); // Set initial state without animation
+		// Pick whichever select is present.
+		var $talle = $('#tf_talle');
+		if (!$talle.length) {
+			$talle = $('select[data-attribute_name="attribute_talle"]');
 		}
+		if (!$talle.length) return;
+
+		/**
+		 * Normalise raw value from either select to check for "a medida".
+		 * Our custom select sends "a_medida".
+		 * WooCommerce sends "A medida" (custom attr) or "a-medida" (taxonomy).
+		 */
+		var isAMedida = function (val) {
+			if (!val) return false;
+			return val.toLowerCase().replace(/[\s\-_]+/g, '') === 'amedida';
+		};
+
+		var toggleMedidas = function (animate) {
+			var show = isAMedida($talle.val());
+			if (animate) {
+				show ? $wrap.slideDown(500) : $wrap.slideUp(500);
+			} else {
+				$wrap.toggle(show);
+			}
+			$wrap.find('input').each(function () {
+				$(this).prop('required', show);
+			});
+		};
+
+		$talle.on('change', function () { toggleMedidas(true); });
+		toggleMedidas(false); // Set initial state without animation
+
+		// On WooCommerce variation reset, also reset the medidas panel.
+		$('form.variations_form').on('reset_data', function () {
+			toggleMedidas(false);
+		});
 	}
 
 	$(function () {

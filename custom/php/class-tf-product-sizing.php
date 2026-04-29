@@ -31,7 +31,7 @@ class TF_Product_Sizing {
     // ─── A. Render ──────────────────────────────────────────────────
 
     /**
-     * Output the talle selector and conditional measure inputs on the
+     * Output the 'talle' selector and conditional measure inputs on the
      * single-product page, right before the "Add to cart" button.
      */
     public function render_sizing_fields() {
@@ -42,10 +42,19 @@ class TF_Product_Sizing {
         global $product;
         $product_id = $product->get_id();
 
-        $habilitado       = (bool) get_field( 'habilitar_talle_a_medida', $product_id );
-        $talles_estandar  = tf_get_product_standard_sizes( $product );
+        $habilitado          = (bool) get_field( 'habilitar_talle_a_medida', $product_id );
+        $talles_estandar     = tf_get_product_standard_sizes( $product );
+        $talle_is_variation  = $this->is_talle_variation_attribute( $product );
 
-        if ( empty( $talles_estandar ) && ! $habilitado ) {
+        // When talle is a variation attribute WooCommerce already renders
+        // its own select. If "A medida" is not enabled either, there is
+        // nothing extra for us to render.
+        if ( $talle_is_variation && ! $habilitado ) {
+            return;
+        }
+
+        // Non-variation product with no sizes and no custom sizing.
+        if ( ! $talle_is_variation && empty( $talles_estandar ) && ! $habilitado ) {
             return;
         }
 
@@ -54,6 +63,7 @@ class TF_Product_Sizing {
 
         ?>
         <div class="tf-custom-sizing">
+            <?php if ( ! $talle_is_variation ) : ?>
             <p class="form-row form-row-wide">
                 <label for="tf_talle">
                     <?php esc_html_e( 'Talle', 'woocommerce' ); ?>
@@ -68,6 +78,7 @@ class TF_Product_Sizing {
                     <?php endif; ?>
                 </select>
             </p>
+            <?php endif; ?>
 
             <?php if ( $habilitado && ! empty( $medidas_requeridas ) ) : ?>
             <div id="tf_medidas_wrap" class="tf-medidas-wrap">
@@ -111,7 +122,7 @@ class TF_Product_Sizing {
             return $passed;
         }
 
-        $talle = isset( $_POST['tf_talle'] ) ? sanitize_text_field( wp_unslash( $_POST['tf_talle'] ) ) : '';
+        $talle = tf_get_posted_talle();
 
         if ( '' === $talle ) {
             wc_add_notice( 'Por favor seleccioná un talle para tu producto.', 'error' );
@@ -149,11 +160,12 @@ class TF_Product_Sizing {
      * @return array
      */
     public function save_to_cart( $cart_item_data, $product_id ) {
-        if ( ! isset( $_POST['tf_talle'] ) ) {
+        $talle = tf_get_posted_talle();
+
+        if ( '' === $talle ) {
             return $cart_item_data;
         }
 
-        $talle = sanitize_text_field( wp_unslash( $_POST['tf_talle'] ) );
         $cart_item_data['tf_talle'] = $talle;
 
         if ( 'a_medida' === $talle && isset( $_POST['tf_medidas'] ) && is_array( $_POST['tf_medidas'] ) ) {
@@ -228,5 +240,30 @@ class TF_Product_Sizing {
                 }
             }
         }
+    }
+
+    // ─── F. Helpers ─────────────────────────────────────────────────
+
+    /**
+     * Check whether "talle" is used as a WooCommerce variation attribute.
+     *
+     * @param  WC_Product $product
+     * @return bool
+     */
+    private function is_talle_variation_attribute( $product ) {
+        if ( ! $product->is_type( 'variable' ) ) {
+            return false;
+        }
+
+        $variation_attributes = $product->get_variation_attributes();
+
+        foreach ( array_keys( $variation_attributes ) as $attr_name ) {
+            $normalised = strtolower( sanitize_title( $attr_name ) );
+            if ( 'talle' === $normalised || 'pa_talle' === $normalised ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
