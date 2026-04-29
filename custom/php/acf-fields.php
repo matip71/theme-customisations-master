@@ -19,14 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * To add or rename a measure, change it ONLY here.
  */
 define( 'TF_MEDIDAS_DEFAULT', array(
-    'radio_de_mama'  => 'Radio de mama (cm)',
-    'contorno_busto' => 'Contorno de busto (cm)',
-    'bajo_busto'     => 'Bajo busto (cm)',
-    'cintura'        => 'Cintura (cm)',
-    'cadera'         => 'Cadera (cm)',
-    'tiro'           => 'Tiro (cm)',
-    'largo'          => 'Largo (cm)',
-) );
+    'contorno_espalda' => 'Contorno de espalda - Bajo busto (cm)',
+    'contorno_busto'   => 'Contorno de busto (cm)',
+    'ancho_copa'       => 'Ancho de copa (cm)',
+    'radio_de_mama'    => 'Radio de mama (cm)',
+    'contorno_cintura' => 'Contorno de cintura (cm)',
+    'contorno_cadera'  => 'Contorno de primera cadera (cm)',
+    'contorno_cola'    => 'Contorno de cadera cola (cm)',
+    'tiro'             => 'Altura de tiro (cm)',
+    'altura_busto'     => 'Altura de busto (cm)',
+    'brazo_largo'      => 'Brazo largo de manga (cm)',
+    'brazo_contorno_brazo' => 'Contorno de brazo (cm)',
+    'brazo_contorno_muneca' => 'Contorno de muñeca (cm)'
+));
 
 /**
  * Return the canonical map of measure slugs → labels.
