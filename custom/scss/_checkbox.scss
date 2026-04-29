@@ -71,14 +71,15 @@
 }
 
 .woocommerce-checkout form.checkout .col2-set .col-1,
-.woocommerce-checkout form.checkout .col2-set .col-2 {
+.woocommerce-checkout form.checkout .col2-set .col-2,
+.woocommerce-checkout form.checkout #ship-to-different-address {
 	margin-bottom: 0px;
 }
 
 // ── Omnisend Newsletter Checkbox ─────────────────────────
 
 #omnisend_newsletter_checkbox_field {
-	margin: $spacing-sm 0px;
+	margin: $spacing-md 0px;
 }
 
 #omnisend_newsletter_checkbox_field label.checkbox {
