@@ -61,6 +61,20 @@
 	font-size: 13px;
 }
 
+// ── Order received page ───────────────────────
+
+.woocommerce-checkout .woocommerce-order {
+	&>h2 {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-size: 1.5rem;
+		margin-bottom: $spacing-sm;
+		padding-bottom: $spacing-sm;
+		border-bottom: 2px solid $black;
+		max-width: 600px;
+	}
+}
+
 
 // ── Mobile Checkout Reordering ───────────────────────────
 
