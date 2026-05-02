@@ -70,6 +70,7 @@ final class Theme_Customisations {
 			'tf-checkout'          => 'checkout.js',
 			'tf-account'           => 'account.js',
 			'tf-variation-tooltip' => 'variation-tooltip.js',
+			'tf-payment-receipt'   => 'payment-receipt.js',
 		);
 
 		foreach ( $scripts as $handle => $file ) {

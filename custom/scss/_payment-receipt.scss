@@ -1,0 +1,196 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// Payment Receipt Upload
+// ══════════════════════════════════════════════════════════
+
+.tf-receipt-upload {
+	margin-top: 100px;
+	max-width: 500px;
+}
+
+.tf-receipt-upload h3 {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 1.1rem;
+	margin-bottom: $spacing-sm;
+	padding-bottom: $spacing-sm;
+	border-bottom: 2px solid $black;
+}
+
+.tf-receipt-upload__desc {
+	color: $text-muted;
+	font-size: 14px;
+	margin-bottom: $spacing-lg;
+}
+
+
+// ── Dropzone ─────────────────────────────────────────────
+
+.tf-receipt-upload__dropzone {
+	border: 2px dashed $border;
+	padding: $spacing-2xl $spacing-lg;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color $transition-base, background-color $transition-base;
+}
+
+.tf-receipt-upload__dropzone:hover,
+.tf-receipt-upload__dropzone--active {
+	border-color: $black;
+	background-color: $surface-light;
+}
+
+.tf-receipt-upload__icon {
+	color: $text-muted;
+	margin-bottom: $spacing-md;
+}
+
+.tf-receipt-upload__drop-text {
+	color: $text-primary;
+	font-size: 14px;
+	margin-bottom: $spacing-xs;
+}
+
+.tf-receipt-upload__or-text {
+	color: $text-muted;
+	font-size: 12px;
+	margin-bottom: $spacing-md;
+}
+
+.tf-receipt-upload__browse-btn {
+	background: none;
+	border: 1px solid $black;
+	padding: $spacing-xs $spacing-lg;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;
+	transition: all $transition-base;
+	font-family: $font-family;
+}
+
+.tf-receipt-upload__browse-btn:hover {
+	background-color: $black;
+	color: $white;
+}
+
+
+// ── Preview ──────────────────────────────────────────────
+
+.tf-receipt-upload__preview {
+	position: relative;
+	background: $surface-card;
+	border: 1px solid $border;
+	padding: $spacing-lg;
+	display: flex;
+	align-items: center;
+	gap: $spacing-md;
+}
+
+.tf-receipt-upload__preview-inner {
+	display: flex;
+	align-items: center;
+	gap: $spacing-md;
+	flex: 1;
+	min-width: 0;
+}
+
+.tf-receipt-upload__thumb {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border: 1px solid $border;
+	flex-shrink: 0;
+}
+
+.tf-receipt-upload__pdf-icon {
+	color: $text-muted;
+	flex-shrink: 0;
+}
+
+.tf-receipt-upload__fname {
+	font-size: 13px;
+	color: $text-tertiary;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tf-receipt-upload__remove {
+	position: absolute;
+	top: $spacing-xs;
+	right: $spacing-sm;
+	background: none;
+	border: none;
+	font-size: 20px;
+	line-height: 1;
+	color: $text-muted;
+	cursor: pointer;
+	transition: color $transition-fast;
+	padding: 0;
+}
+
+.tf-receipt-upload__remove:hover {
+	color: $black;
+}
+
+
+// ── Actions & Messages ──────────────────────────────────
+
+.tf-receipt-upload__actions {
+	margin-top: $spacing-lg;
+	margin-bottom: $spacing-2xl;
+}
+
+.tf-receipt-upload__submit {
+	background-color: $black;
+	color: $white;
+	border: 1px solid $black;
+	border-radius: 0;
+	padding: 12px 25px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	width: 100%;
+	cursor: pointer;
+	transition: all $transition-base;
+	font-family: $font-family;
+}
+
+.tf-receipt-upload__submit:hover:not(:disabled) {
+	background-color: $white;
+	color: $black;
+}
+
+.tf-receipt-upload__submit:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.tf-receipt-upload__msg {
+	margin-top: $spacing-md;
+	padding: $spacing-sm $spacing-md;
+	font-size: 13px;
+	border: 1px solid;
+}
+
+.tf-receipt-upload__msg--success {
+	color: #2e7d32;
+	background-color: #e8f5e9;
+	border-color: #c8e6c9;
+}
+
+.tf-receipt-upload__msg--error {
+	color: #c62828;
+	background-color: #ffebee;
+	border-color: #ffcdd2;
+}
+
+.tf-receipt-upload__remaining {
+	color: $text-muted;
+	font-size: 12px;
+	margin-top: $spacing-sm;
+	text-align: center;
+}

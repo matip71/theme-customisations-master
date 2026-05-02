@@ -8,7 +8,6 @@
 .woocommerce table.shop_table {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: $spacing-md;
 	text-align: left;
 	border-radius: 0;
 }
@@ -67,9 +66,96 @@ table.order_details td.product-total {
 }
 
 
-// ── Footer / Totals styling ──────────────────────────────
+// ── Checkout Footer / Totals ─────────────────────────────
+// Use table-caption to escape the table's column structure,
+// giving each tfoot row full width and independent grid columns.
 
-.woocommerce table.shop_table tfoot th,
+.woocommerce-checkout-review-order-table tfoot {
+	display: table-caption;
+	caption-side: bottom;
+	width: 100%;
+	border-top: 2px solid #000000;
+
+	tr {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		padding: 0px;
+		border-bottom: 1px solid $surface;
+	}
+
+	th {
+		font-weight: normal;
+		color: $text-tertiary;
+	}
+
+	td {
+		text-align: right;
+		color: $text-primary;
+	}
+
+	// Shipping row: narrow label, wide options
+	tr.woocommerce-shipping-totals {
+		grid-template-columns: auto 1fr;
+
+		th {
+			height: 100%;
+			align-content: center;
+		}
+
+		td {
+			text-align: right;
+			padding: 0;
+
+			ul#shipping_method {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.woocommerce-shipping-methods li {
+				display: flex;
+				justify-content: end;
+				padding: 5px $spacing-sm 5px 0;
+				margin-bottom: 0 !important;
+				border-bottom: 1px solid #e9e9e5;
+
+				&:last-child {
+					border-bottom: none;
+				}
+
+				input {
+					width: 15px;
+					flex-shrink: 0;
+				}
+
+				label {
+					margin-left: $spacing-xs;
+					font-size: 14px;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	// Order total row
+	tr.order-total {
+		border-top: 2px solid $black;
+		border-bottom: none;
+
+		th,
+		td {
+			color: $black;
+		}
+
+		td strong {
+			font-size: 1.25rem;
+		}
+	}
+}
+
+// ── Cart Totals page (keeps original table layout) ───────
+
 .woocommerce .cart_totals table.shop_table tbody th {
 	font-weight: normal;
 	font-size: 0.9rem;
@@ -77,40 +163,34 @@ table.order_details td.product-total {
 	color: $text-tertiary;
 }
 
-.woocommerce table.shop_table tfoot td,
 .woocommerce .cart_totals table.shop_table tbody td {
 	text-align: right;
 	color: $text-primary;
 }
 
-.woocommerce table.shop_table tfoot tr,
 .woocommerce .cart_totals table.shop_table tbody tr {
 	border-bottom: 1px solid $surface !important;
 }
 
+// ── Shipping Method lists (cart page) ────────────────────
 
-// ── Shipping Method lists ────────────────────────────────
-
-.woocommerce table.shop_table ul#shipping_method {
+.woocommerce .cart_totals table.shop_table ul#shipping_method {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.woocommerce table.shop_table ul#shipping_method li {
+.woocommerce .cart_totals table.shop_table ul#shipping_method li {
 	margin-bottom: 0px;
 }
 
-.woocommerce table.shop_table ul#shipping_method label {
+.woocommerce .cart_totals table.shop_table ul#shipping_method label {
 	color: $text-primary;
 	cursor: pointer;
 }
 
+// ── Order Total Rows (cart page) ─────────────────────────
 
-// ── Order Total Rows ─────────────────────────────────────
-
-.woocommerce table.shop_table tfoot tr.order-total th,
-.woocommerce table.shop_table tfoot tr.order-total td,
 .woocommerce .cart_totals table.shop_table tr.order-total th,
 .woocommerce .cart_totals table.shop_table tr.order-total td {
 	border-top: 2px solid $black !important;
@@ -119,6 +199,6 @@ table.order_details td.product-total {
 	color: $black;
 }
 
-.woocommerce table.shop_table tr.order-total td strong {
+.woocommerce .cart_totals table.shop_table tr.order-total td strong {
 	font-size: 1.25rem;
 }
