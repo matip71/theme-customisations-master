@@ -25,6 +25,10 @@
 		margin: 0 auto;
 	}
 
+	.site-header-cart {
+		font-size: 14px;
+	}
+
 	.site-header-cart .cart-contents {
 		padding: $spacing-sm 0px;
 		text-align: right;
@@ -49,7 +53,9 @@
 	}
 
 	.custom-header-icons {
-		padding: $spacing-sm;
+		padding: $spacing-sm $spacing-xs;
+		white-space: nowrap;
+		font-size: 14px;
 	}
 
 	.custom-header-icons .my-account-custom::after {
@@ -129,9 +135,9 @@
 		text-align: center;
 	}
 
-	#site-navigation ul.menu > li > a,
-	.main-navigation ul.nav-menu > li > a {
-		padding: $spacing-xs $spacing-sm;
+	#site-navigation ul.menu>li>a,
+	.main-navigation ul.nav-menu>li>a {
+		padding: $spacing-xs;
 	}
 
 	.woocommerce-ordering {
@@ -155,6 +161,20 @@
 @include desktop {
 	.sp-header-last #site-header-cart {
 		min-width: 400px;
+	}
+
+	#site-navigation ul.menu>li>a,
+	.main-navigation ul.nav-menu>li>a {
+		padding: $spacing-xs $spacing-sm;
+	}
+
+	.site-header-cart {
+		font-size: 16px;
+	}
+
+	.custom-header-icons {
+		padding: $spacing-sm;
+		font-size: 16px;
 	}
 }
 
