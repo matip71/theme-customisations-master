@@ -133,8 +133,60 @@
 			toggleMedidas(false);
 		});
 	}
+	/**
+	 * Fix FlexSlider slide width mismatch.
+	 *
+	 * FlexSlider's internal width calculation doesn't always match
+	 * the actual .flex-viewport width, which causes a ~1-7px bleed
+	 * of the adjacent slide at certain viewport sizes.
+	 *
+	 * We correct this by forcing each slide's width to the viewport's
+	 * measured width after init and on window resize.
+	 */
+	function fixGallerySlideWidths() {
+		var $gallery = $('.woocommerce-product-gallery');
+		if (!$gallery.length) return;
+
+		var correcting = false; // guard to avoid observer loop
+
+		function sync() {
+			if (window.innerWidth < 380) return;
+
+			var $viewport = $gallery.find('.flex-viewport');
+			var vpWidth = $viewport.width();
+			if (!vpWidth) return;
+
+			vpWidth -= 5;
+			correcting = true;
+			$gallery.find('.woocommerce-product-gallery__image').each(function () {
+				this.style.setProperty('width', vpWidth + 'px', 'important');
+			});
+			correcting = false;
+		}
+
+		// Run after FlexSlider has initialised
+		setTimeout(sync, 200);
+
+		// Re-sync on resize
+		var resizeTimer;
+		$(window).on('resize', function () {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(sync, 200);
+		});
+
+		// Watch for FlexSlider resetting widths on slide transitions
+		var observer = new MutationObserver(function () {
+			if (correcting) return;
+			sync();
+		});
+
+		$gallery.find('.woocommerce-product-gallery__image').each(function () {
+			observer.observe(this, { attributes: true, attributeFilter: ['style'] });
+		});
+	}
 
 	$(function () {
+		fixGallerySlideWidths();
 		bindVariationPrice();
 		bindStickyBar();
 		bindCustomSizing();
