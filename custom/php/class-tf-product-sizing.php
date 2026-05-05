@@ -155,20 +155,32 @@ class TF_Product_Sizing {
     /**
      * Attach talle + measures to the cart item data.
      *
+     * IMPORTANT: When talle is a WooCommerce variation attribute,
+     * WooCommerce already stores it as part of the variation data.
+     * We only store tf_talle for our *custom* select (non-variation)
+     * to avoid the value showing twice in cart / order details.
+     *
      * @param  array $cart_item_data
      * @param  int   $product_id
      * @return array
      */
     public function save_to_cart( $cart_item_data, $product_id ) {
-        $talle = tf_get_posted_talle();
+        // Only store when value came from our custom select, not from
+        // WooCommerce's variation attribute (which WC already persists).
+        $from_custom = ! empty( $_POST['tf_talle'] );
+        $talle       = tf_get_posted_talle();
 
         if ( '' === $talle ) {
             return $cart_item_data;
         }
 
-        $cart_item_data['tf_talle'] = $talle;
+        if ( $from_custom ) {
+            $cart_item_data['tf_talle'] = $talle;
+        }
 
         if ( 'a_medida' === $talle && isset( $_POST['tf_medidas'] ) && is_array( $_POST['tf_medidas'] ) ) {
+            // Always store measures regardless of the talle source.
+            $cart_item_data['tf_talle'] = $talle; // ensure key exists for measure display
             $medidas = array();
             foreach ( $_POST['tf_medidas'] as $key => $value ) {
                 $medidas[ sanitize_key( $key ) ] = sanitize_text_field( wp_unslash( $value ) );
@@ -187,6 +199,10 @@ class TF_Product_Sizing {
     /**
      * Show talle and measure details under the product name in cart.
      *
+     * When talle is a variation attribute WooCommerce already displays it,
+     * so we only add the "Talle" row for non-variation (custom select)
+     * products. Custom measures are always shown.
+     *
      * @param  array $item_data
      * @param  array $cart_item
      * @return array
@@ -196,10 +212,18 @@ class TF_Product_Sizing {
             return $item_data;
         }
 
-        $item_data[] = array(
-            'key'   => 'Talle',
-            'value' => tf_format_talle_display( $cart_item['tf_talle'] ),
-        );
+        // Only show the talle row when it was NOT already displayed by WooCommerce
+        // as a variation attribute. We detect this by checking whether the cart
+        // item's variation data already contains an 'attribute_talle' key.
+        $is_variation_talle = ! empty( $cart_item['variation'] )
+            && $this->variation_has_talle( $cart_item['variation'] );
+
+        if ( ! $is_variation_talle ) {
+            $item_data[] = array(
+                'key'   => 'Talle',
+                'value' => tf_format_talle_display( $cart_item['tf_talle'] ),
+            );
+        }
 
         if ( tf_has_custom_measures( $cart_item ) ) {
             foreach ( $cart_item['tf_medidas'] as $key => $value ) {
@@ -221,6 +245,10 @@ class TF_Product_Sizing {
      * Copy sizing data from cart item into the order line-item meta.
      * This is what production staff sees in WP Admin.
      *
+     * When talle is a variation attribute, WooCommerce already saves it
+     * as order item meta — we skip the duplicate. Custom measures are
+     * always persisted.
+     *
      * @param  WC_Order_Item_Product $item
      * @param  string                $cart_item_key
      * @param  array                 $values
@@ -231,7 +259,14 @@ class TF_Product_Sizing {
             return;
         }
 
-        $item->add_meta_data( 'Talle', tf_format_talle_display( $values['tf_talle'] ), true );
+        // Only add the Talle meta when WooCommerce isn't already handling it
+        // as a variation attribute.
+        $is_variation_talle = ! empty( $values['variation'] )
+            && $this->variation_has_talle( $values['variation'] );
+
+        if ( ! $is_variation_talle ) {
+            $item->add_meta_data( 'Talle', tf_format_talle_display( $values['tf_talle'] ), true );
+        }
 
         if ( tf_has_custom_measures( $values ) ) {
             foreach ( $values['tf_medidas'] as $key => $value ) {
@@ -264,6 +299,25 @@ class TF_Product_Sizing {
             }
         }
 
+        return false;
+    }
+
+    /**
+     * Check whether a variation data array already contains a talle key.
+     *
+     * Cart items store variation selections as:
+     *   [ 'attribute_talle' => 'M', 'attribute_pa_color' => 'negro', … ]
+     *
+     * @param  array $variation_data  The 'variation' key from a cart item.
+     * @return bool
+     */
+    private function variation_has_talle( $variation_data ) {
+        foreach ( array_keys( $variation_data ) as $key ) {
+            $normalised = strtolower( $key );
+            if ( 'attribute_talle' === $normalised || 'attribute_pa_talle' === $normalised ) {
+                return true;
+            }
+        }
         return false;
     }
 }

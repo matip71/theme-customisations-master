@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ══════════════════════════════════════════════════════════
 // Menu — Nav menu, sub-menu
@@ -10,4 +11,16 @@ ul.menu.nav-menu ul.sub-menu .mega-sub-option {
 
 ul.menu.nav-menu ul.sub-menu .mega-sub-option a {
 	font-size: 16px;
+}
+
+@include tablet {
+	ul.menu.nav-menu {
+		font-size: 14px;
+	}
+}
+
+@include desktop {
+	ul.menu.nav-menu {
+		font-size: 16px;
+	}
 }

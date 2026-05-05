@@ -84,3 +84,8 @@ p.stars.selected a.active:before {
 .storefront-breadcrumb nav a::before {
 	display: none !important;
 }
+
+.storefront-full-width-content.woocommerce-active .entry-header,
+.storefront-full-width-content .woocommerce-products-header {
+	text-align: center;
+}
