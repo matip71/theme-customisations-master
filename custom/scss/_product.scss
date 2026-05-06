@@ -88,6 +88,27 @@
 	.flex-viewport {
 		height: $gallery-height !important;
 		transition: none !important;
+
+		// White strips that mask sub-pixel bleed from adjacent slides
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 3px;
+			background: $white;
+			z-index: 2;
+			pointer-events: none;
+		}
+
+		&::before {
+			left: 0;
+		}
+
+		&::after {
+			right: 0;
+		}
 	}
 
 	.woocommerce-product-gallery__image {
