@@ -1,0 +1,92 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ══════════════════════════════════════════════════════════
+// MercadoPago Custom Checkout — Override plugin styles
+// Use high specificity wrapper to beat MP's !important rules
+// ══════════════════════════════════════════════════════════
+
+body.woocommerce-checkout #payment .payment_box.payment_method_woo-mercado-pago-custom {
+	font-family: $font-family !important;
+	color: $text-primary !important;
+
+	.mp-checkout-custom-container {
+		background-color: $surface-light !important;
+		padding-bottom: $spacing-lg !important;
+		width: 100% !important;
+	}
+
+	// ── Card Flags (brand logos) ─────────────────────────────
+	.mp-checkout-custom-card-flags {
+		margin-bottom: $spacing-lg !important;
+		flex-wrap: nowrap !important;
+	}
+
+
+	// ── Wallet Button Section ────────────────────────────────
+	.mp-wallet-button-container-wrapper {
+		margin-bottom: $spacing-lg !important;
+	}
+
+	.mp-wallet-button-container {
+		border-radius: 0 !important;
+		padding: $spacing-md !important;
+		margin-bottom: 0px !important;
+	}
+
+	.mp-wallet-button-title span {
+		font-family: $font-family !important;
+		font-size: 13px !important;
+		color: $text-primary !important;
+		font-weight: 500 !important;
+		line-height: 1.4 !important;
+	}
+
+	.mp-privacy-policy-footer span {
+		color: $text-muted !important;
+
+		a {
+			text-decoration: underline !important;
+			color: $text-muted !important;
+
+			&:hover {
+				color: $black !important;
+			}
+		}
+	}
+
+	#mp-checkout-custom-root #mp-custom-checkout-form-container .mp-checkout-custom-card-form {
+		gap: $spacing-md !important;
+	}
+
+	// ── Form Labels ──────────────────────────────────────────
+	.mp-input-label {
+		color: $text-primary !important;
+		letter-spacing: 0.03em !important;
+
+		b {
+			color: $text-primary !important;
+			font-weight: 700 !important;
+		}
+	}
+
+	// ── Form Inputs ──────────────────────────────────────────
+	#mp-checkout-custom-root #mp-custom-checkout-form-container #form-checkout__cardNumber-container,
+	#mp-checkout-custom-root #mp-custom-checkout-form-container #mp-card-holder-div .mp-card-holder-name,
+	#mp-checkout-custom-root #mp-custom-checkout-form-container .mp-checkout-custom-card-column .mp-checkout-custom-security-code-container .mp-checkout-custom-security-code-input,
+	#mp-checkout-custom-root #mp-custom-checkout-form-container .mp-checkout-custom-card-form .mp-checkout-custom-card-input {
+		border-radius: 0px !important
+	}
+
+	// ── Helper / Validation Messages ─────────────────────────
+	.mp-helper-message {
+		font-family: $font-family !important;
+		font-size: 12px !important;
+		line-height: 1.3 !important;
+
+		&.info {
+			color: $text-muted !important;
+		}
+	}
+
+}
