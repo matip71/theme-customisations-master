@@ -22,6 +22,7 @@ require_once __DIR__ . '/header.php';
 require_once __DIR__ . '/product-pricing.php';
 require_once __DIR__ . '/product-add-to-cart.php';
 require_once __DIR__ . '/class-tf-payment-receipt.php';
+require_once __DIR__ . '/shop.php';
 
 // ── Boot WooCommerce integrations ─────────────────────────────────
 new TF_Product_Sizing();

@@ -36,6 +36,57 @@
 	color: $text-tertiary !important;
 }
 
+// ── Sort and Pagination ────────────────────────────────────
+.storefront-sorting {
+	select.orderby {
+		@include input-base;
+	}
+
+	.woocommerce-ordering {
+		padding: 0px;
+	}
+
+	.woocommerce-pagination {
+		margin-right: $spacing-sm;
+
+		ul.page-numbers .page-numbers {
+			padding: 1px $spacing-xs;
+			border: 1px solid $border;
+			text-decoration: none;
+			transition:
+				background-color $transition-fast,
+				color $transition-fast,
+				border-color $transition-fast;
+
+			&:hover,
+			&:focus {
+				border-color: $black;
+				color: $black;
+				outline: none;
+			}
+
+			&.current {
+				background-color: $black;
+				color: $white;
+				border-color: $black;
+			}
+
+			&.next,
+			&.prev {
+				border-color: transparent;
+				font-size: 1rem;
+
+				&:hover,
+				&:focus {
+					border-color: $black;
+					color: $black;
+					outline: none;
+				}
+			}
+		}
+	}
+}
+
 // ── Product Cards (site-wide) ────────────────────────────
 
 ul.products {
@@ -126,11 +177,9 @@ ul.products li.product .button {
 	border: 1px solid $black !important;
 	color: $black !important;
 	font-family: $font-family;
-	font-size: 0.75rem;
 	font-weight: 500;
 	text-align: center;
 	text-transform: uppercase;
-	padding: 10px 10px 9px 10px;
 	transition:
 		background-color $transition-base,
 		color $transition-base;
@@ -143,13 +192,33 @@ ul.products li.product .button {
 }
 
 // ── Product Cards — Responsive ───────────────────────────────
+@include tablet {
+	ul.products li.product .button {
+		font-size: 0.6rem;
+		padding: 10px 5px 9px 5px;
+	}
+}
+
 @include desktop {
 	ul.products li.product .woocommerce-loop-product__title {
 		font-size: 0.9rem;
 	}
+
+	ul.products li.product .button {
+		font-size: 0.75rem;
+		padding: 10px 10px 9px 10px;
+	}
 }
 
 @include mobile {
+	.storefront-sorting~.storefront-sorting {
+		margin-top: 1em;
+
+		.woocommerce-ordering {
+			display: none;
+		}
+	}
+
 	ul.products {
 		grid-template-columns: repeat(2, 1fr);
 		gap: $spacing-sm;
@@ -246,4 +315,90 @@ ul.products li.product .button {
 	font-size: 1.5rem;
 	padding: 2px $spacing-md 6px $spacing-md;
 	font-variant: all-small-caps;
+}
+
+// ══════════════════════════════════════════════════════════
+// Mobile Filters Toggle Bar
+// ══════════════════════════════════════════════════════════
+
+.tf-mobile-filters-bar {
+	display: none;
+}
+
+@include mobile {
+	.tf-mobile-filters-bar {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: $spacing-md;
+
+		#tf-mobile-filters-toggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: $spacing-sm;
+			width: 100%;
+			background-color: transparent;
+			color: $text-primary;
+			border: 1px solid $border;
+			padding: $spacing-sm;
+			font-family: $font-family;
+			font-size: 0.85rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			cursor: pointer;
+			transition: background-color $transition-fast, color $transition-fast;
+			
+			svg {
+				width: 18px;
+				height: 18px;
+			}
+
+			&:hover {
+				background-color: $black;
+				color: $white;
+			}
+		}
+
+		.tf-mobile-active-filters {
+			margin-top: $spacing-sm;
+			
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: $spacing-xs;
+
+				li {
+					margin: 0;
+					
+					a {
+						display: inline-flex;
+						align-items: center;
+						font-size: 0.75rem;
+						padding: 4px 8px;
+						background: $surface;
+						color: $text-primary;
+						border-radius: 4px;
+						text-decoration: none;
+						transition: background-color $transition-fast;
+
+						&::before {
+							content: '×';
+							margin-right: 4px;
+							font-weight: bold;
+							font-size: 1rem;
+							line-height: 1;
+						}
+
+						&:hover {
+							background: $surface-alt;
+							color: $black;
+						}
+					}
+				}
+			}
+		}
+	}
 }

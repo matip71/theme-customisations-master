@@ -71,6 +71,7 @@ final class Theme_Customisations {
 			'tf-account'           => 'account.js',
 			'tf-variation-tooltip' => 'variation-tooltip.js',
 			'tf-payment-receipt'   => 'payment-receipt.js',
+			'tf-shop'              => 'shop.js',
 		);
 
 		foreach ( $scripts as $handle => $file ) {
