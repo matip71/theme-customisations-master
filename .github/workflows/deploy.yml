@@ -20,5 +20,5 @@ jobs:
           username: bitnami
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
           script: |
-            cd /bitnami/wordpress/wp-content/plugins/theme-customisations-master
+            cd /var/www/html/wp-content/plugins/theme-customisations-master
             git pull origin main
