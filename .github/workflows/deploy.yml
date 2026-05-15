@@ -17,7 +17,7 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.LIGHTSAIL_IP }}
-          username: bitnami
+          username: ${{ secrets.LIGHTSAIL_USER }}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
           script: |
             cd /var/www/html/wp-content/plugins/theme-customisations-master
