@@ -65,8 +65,8 @@
 @mixin submit-button-base {
 	text-transform: uppercase;
 	font-weight: 500;
-	font-size: 20px !important;
-	letter-spacing: 0.5px;
+	font-size: 18px !important;
+	padding: 10px 15px
 }
 
 // ── Custom checkbox (account + checkout) ─────────────────
