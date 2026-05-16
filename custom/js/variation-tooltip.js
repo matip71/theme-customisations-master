@@ -6,28 +6,61 @@
 	'use strict';
 
 	function initVariationTooltips() {
-		// Only process raw <dl> elements — skip already-converted tooltips
-		$('.woocommerce-cart-form .variation, .woocommerce-checkout .variation, .woocommerce-mini-cart .variation').each(function () {
-			var $dl = $(this);
+		var selectors = [
+			'.woocommerce-cart-form .variation',
+			'.woocommerce-checkout .variation',
+			'.woocommerce-mini-cart .variation',
+			'.woocommerce-view-order .wc-item-meta',
+			'.woocommerce-order-received .wc-item-meta',
+			'.woocommerce-order-pay .wc-item-meta'
+		].join(', ');
+
+		// Only process elements — skip already-converted tooltips
+		$(selectors).each(function () {
+			var $container = $(this);
 			var leaveTimer;
 
 			var $wrap = $('<span class="tf-variation-tooltip"></span>');
 			var $trigger = $('<button type="button" class="tf-variation-trigger" aria-label="Ver medidas" aria-expanded="false"><i class="fas fa-info-circle"></i></button>');
 			var $panel = $('<div class="tf-variation-panel" role="tooltip"></div>');
 
-			// Build panel rows from the original dl
-			$dl.find('dt').each(function () {
-				var label = $(this).text().replace(/:$/, '');
-				var value = $(this).next('dd').text().trim();
-				$panel.append(
-					$('<div class="tf-variation-row"></div>')
-						.append($('<span class="tf-variation-key"></span>').text(label))
-						.append($('<span class="tf-variation-val"></span>').text(value))
-				);
-			});
+			// Build panel rows from the original element
+			if ($container.is('dl') || $container.hasClass('variation')) {
+				$container.find('dt').each(function () {
+					var label = $(this).text().replace(/:$/, '').trim();
+					var value = $(this).next('dd').text().trim();
+					$panel.append(
+						$('<div class="tf-variation-row"></div>')
+							.append($('<span class="tf-variation-key"></span>').text(label))
+							.append($('<span class="tf-variation-val"></span>').text(value))
+					);
+				});
+			} else if ($container.is('ul') || $container.hasClass('wc-item-meta')) {
+				$container.find('li').each(function () {
+					var label = $(this).find('.wc-item-meta-label').text().replace(/:$/, '').trim();
+					// WC sometimes wraps the value in a <p>, sometimes it's just a text node
+					var $p = $(this).find('p');
+					var value = '';
+
+					if ($p.length) {
+						value = $p.text().trim();
+					} else {
+						// Fallback: get all text in the li and strip out the label text
+						var fullText = $(this).text().trim();
+						var originalLabelText = $(this).find('.wc-item-meta-label').text();
+						value = fullText.replace(originalLabelText, '').trim();
+					}
+
+					$panel.append(
+						$('<div class="tf-variation-row"></div>')
+							.append($('<span class="tf-variation-key"></span>').text(label))
+							.append($('<span class="tf-variation-val"></span>').text(value))
+					);
+				});
+			}
 
 			$wrap.append($trigger).append($panel);
-			$dl.replaceWith($wrap);
+			$container.replaceWith($wrap);
 
 			var openPanel = function () {
 				clearTimeout(leaveTimer);

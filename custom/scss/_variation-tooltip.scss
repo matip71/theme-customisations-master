@@ -4,6 +4,16 @@
 // Variation Tooltip — Cart + Mini Cart
 // ══════════════════════════════════════════════════════════
 
+// Prevent Layout Shift (CLS): Hide the raw variation markup before JS converts it.
+.woocommerce-cart-form dl.variation,
+.woocommerce-checkout dl.variation,
+.woocommerce-mini-cart dl.variation,
+.woocommerce-view-order ul.wc-item-meta,
+.woocommerce-order-received ul.wc-item-meta,
+.woocommerce-order-pay ul.wc-item-meta {
+	display: none;
+}
+
 .tf-variation-tooltip {
 	position: relative;
 	vertical-align: middle;
