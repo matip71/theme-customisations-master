@@ -28,6 +28,20 @@
 	border-bottom-color: transparent;
 }
 
+// ── Desktop Layout Override ──────────────────────────────
+@include tablet {
+	.woocommerce-account .woocommerce-MyAccount-navigation {
+		float: left !important;
+		width: 25% !important;
+		margin-right: 0 !important;
+	}
+
+	.woocommerce-account .woocommerce-MyAccount-content {
+		float: right !important;
+		width: 70% !important;
+		margin-right: 0 !important;
+	}
+}
 
 // ── Addresses ────────────────────────────────────────────
 
