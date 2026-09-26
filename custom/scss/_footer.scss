@@ -14,8 +14,28 @@ footer .site-info {
 	padding-bottom: $spacing-sm;
 }
 
+footer .site-info .privacy-policy-link {
+	display: none;
+}
+
 .site-footer .footer-widgets {
 	padding-top: 0px;
+}
+
+.site-footer .footer-widgets .menu .menu-item {
+	padding-left: 0px;
+
+	&::before {
+		display: none;
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .site-footer .footer-widgets .widget-title {
@@ -48,4 +68,10 @@ footer .site-info {
 
 .site-footer .footer-widgets .sfsi .norm_row .sfsi_wicons:first-child {
 	margin-left: 0px !important;
+}
+
+@include mobile {
+	.site-info {
+		display: none;
+	}
 }
