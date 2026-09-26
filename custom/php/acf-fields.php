@@ -34,6 +34,36 @@ define( 'TF_MEDIDAS_DEFAULT', array(
 ));
 
 /**
+ * Tooltip images for body measurements.
+ *
+ * slug => image URL. The image itself contains all the visual instructions.
+ */
+define( 'TF_MEDIDAS_IMAGES', array(
+    'contorno_espalda'      => 'https://braddia.com/wp-content/uploads/2026/09/1.png',
+    'contorno_busto'        => 'https://braddia.com/wp-content/uploads/2026/09/2.png',
+    'ancho_copa'            => 'https://braddia.com/wp-content/uploads/2026/09/3.png',
+    'radio_de_mama'         => 'https://braddia.com/wp-content/uploads/2026/09/4.png',
+    'contorno_cintura'      => 'https://braddia.com/wp-content/uploads/2026/09/5.png',
+    'contorno_cadera'       => 'https://braddia.com/wp-content/uploads/2026/09/5.png',
+    'contorno_cola'         => 'https://braddia.com/wp-content/uploads/2026/09/5.png',
+    'tiro'                  => 'https://braddia.com/wp-content/uploads/2026/09/6.png',
+    'altura_busto'          => 'https://braddia.com/wp-content/uploads/2026/09/PASO-1-Contorno-de-espalda-bajo-busto.png',
+    'brazo_largo'           => 'https://braddia.com/wp-content/uploads/2026/09/7.png',
+    'brazo_contorno_brazo'  => 'https://braddia.com/wp-content/uploads/2026/09/7.png',
+    'brazo_contorno_muneca' => 'https://braddia.com/wp-content/uploads/2026/09/7.png',
+));
+
+/**
+ * Return the tooltip image URL for a given measure slug.
+ *
+ * @param  string $slug Measure slug.
+ * @return string       Image URL or empty string.
+ */
+function tf_get_medida_image( $slug ) {
+    return isset( TF_MEDIDAS_IMAGES[ $slug ] ) ? TF_MEDIDAS_IMAGES[ $slug ] : '';
+}
+
+/**
  * Return the canonical map of measure slugs → labels.
  *
  * @return array  slug => label

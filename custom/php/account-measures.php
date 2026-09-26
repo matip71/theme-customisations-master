@@ -28,15 +28,34 @@ function tf_render_account_measures_form() {
     echo '<table class="form-table">';
 
     foreach ( $medidas as $key => $label ) {
-        $valor = get_field( $key, 'user_' . $user_id );
+        $valor     = get_field( $key, 'user_' . $user_id );
+        $image_url = tf_get_medida_image( $key );
+
+        $tooltip_html = '';
+        if ( $image_url ) {
+            $tooltip_html = sprintf(
+                '<span class="tf-measure-help">
+                    <span class="tf-measure-tooltip-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </span>
+                    <span class="tf-measure-tooltip-bubble">
+                        <img src="%s" alt="%s" />
+                    </span>
+                </span>',
+                esc_url( $image_url ),
+                esc_attr( $label )
+            );
+        }
+
         printf(
             '<tr>
-                <th><label for="%1$s">%2$s</label></th>
+                <th><label for="%1$s">%2$s%4$s</label></th>
                 <td><input type="number" step="0.1" name="%1$s" id="%1$s" value="%3$s" class="regular-text" /></td>
             </tr>',
             esc_attr( $key ),
             esc_html( $label ),
-            esc_attr( $valor )
+            esc_attr( $valor ),
+            $tooltip_html
         );
     }
 

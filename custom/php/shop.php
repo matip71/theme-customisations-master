@@ -50,3 +50,16 @@ function tf_add_mobile_filters_toggle() {
 // 30: storefront_sorting_wrapper
 // Let's attach at 25 or 35 so it's inside or near the sorting wrapper. We'll use 25.
 add_action( 'woocommerce_before_shop_loop', 'tf_add_mobile_filters_toggle', 25 );
+
+/**
+ * Hide "Uncategorized" category from the product categories widget.
+ */
+function tf_exclude_uncategorized_from_widget( $args ) {
+    $uncategorized = get_term_by( 'slug', 'uncategorized', 'product_cat' );
+    if ( $uncategorized ) {
+        $args['exclude'] = isset( $args['exclude'] ) ? $args['exclude'] . ',' . $uncategorized->term_id : $uncategorized->term_id;
+    }
+    return $args;
+}
+add_filter( 'woocommerce_product_categories_widget_args', 'tf_exclude_uncategorized_from_widget' );
+add_filter( 'woocommerce_product_categories_widget_dropdown_args', 'tf_exclude_uncategorized_from_widget' );

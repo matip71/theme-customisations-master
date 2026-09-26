@@ -84,22 +84,33 @@ class TF_Product_Sizing {
             <div id="tf_medidas_wrap" class="tf-medidas-wrap">
                 <p><strong><?php esc_html_e( 'Completá tus medidas (cm)', 'woocommerce' ); ?></strong></p>
 
-                <?php foreach ( $medidas_requeridas as $campo ) :
-                    $value = isset( $defaults[ $campo ] ) ? $defaults[ $campo ] : '';
-                    ?>
-                    <p class="form-row form-row-wide">
-                        <label for="tf_medida_<?php echo esc_attr( $campo ); ?>">
-                            <?php echo esc_html( tf_format_measure_label( $campo ) ); ?>
-                        </label>
-                        <input
-                            type="number"
-                            step="0.1"
-                            class="input-text"
-                            name="tf_medidas[<?php echo esc_attr( $campo ); ?>]"
-                            id="tf_medida_<?php echo esc_attr( $campo ); ?>"
-                            value="<?php echo esc_attr( $value ); ?>"
-                        />
-                    </p>
+                    <?php foreach ( $medidas_requeridas as $campo ) :
+                        $value     = isset( $defaults[ $campo ] ) ? $defaults[ $campo ] : '';
+                        $image_url = tf_get_medida_image( $campo );
+                        ?>
+                        <p class="form-row form-row-wide">
+                            <label for="tf_medida_<?php echo esc_attr( $campo ); ?>">
+                                <?php echo esc_html( tf_format_measure_label( $campo ) ); ?>
+                                <?php if ( $image_url ) : ?>
+                                    <span class="tf-measure-help">
+                                        <span class="tf-measure-tooltip-trigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                        </span>
+                                        <span class="tf-measure-tooltip-bubble">
+                                            <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( tf_format_measure_label( $campo ) ); ?>" />
+                                        </span>
+                                    </span>
+                                <?php endif; ?>
+                            </label>
+                            <input
+                                type="number"
+                                step="0.1"
+                                class="input-text"
+                                name="tf_medidas[<?php echo esc_attr( $campo ); ?>]"
+                                id="tf_medida_<?php echo esc_attr( $campo ); ?>"
+                                value="<?php echo esc_attr( $value ); ?>"
+                            />
+                        </p>
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>

@@ -72,6 +72,57 @@
 	max-width: 35%;
 }
 
+.tf-measure-help {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	margin-left: 0.4em;
+	cursor: help;
+
+	// The info icon
+	.tf-measure-tooltip-trigger {
+		display: inline-flex;
+		color: $text-muted;
+
+		svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	&:hover .tf-measure-tooltip-trigger {
+		color: $text-primary;
+	}
+
+	// The floating popup — hidden by default
+	.tf-measure-tooltip-bubble {
+		display: none;
+		position: absolute;
+		bottom: calc(100% + 8px);
+		left: 50%;
+		transform: translateX(-50%);
+		background: #fff;
+		border: 1px solid $border;
+		border-radius: 6px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+		padding: 5px;
+		width: 400px;
+		z-index: 9999;
+
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			border-radius: 4px;
+		}
+	}
+
+	// Show on hover
+	&:hover .tf-measure-tooltip-bubble {
+		display: block;
+	}
+}
+
 .tf-medidas-wrap input:not([type="submit"]) {
 	@include input-base;
 }
