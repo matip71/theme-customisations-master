@@ -134,10 +134,123 @@
 		});
 	}
 
+	/**
+	 * Measure Tooltip Modal (Mobile & Desktop).
+	 * - Desktop: hover shows tooltip bubble (via CSS), click toggles active state.
+	 * - Mobile: opens centered modal with a full-screen backdrop overlay.
+	 * - Overlay intercepts and absorbs clicks outside the modal to prevent accidental
+	 *   interactions with underlying inputs/buttons.
+	 */
+	function bindMeasureTooltips() {
+		var $overlay = $('.tf-measure-overlay');
+		if (!$overlay.length) {
+			$overlay = $('<div class="tf-measure-overlay"></div>').appendTo('body');
+		}
+
+		var closeMeasureTooltips = function () {
+			$('.tf-measure-help.tf-is-active').removeClass('tf-is-active');
+			$overlay.removeClass('tf-is-active');
+			$('body').removeClass('tf-measure-modal-open');
+		};
+
+		// Tapping the ⓘ icon / trigger
+		$(document).on('click', '.tf-measure-help', function (e) {
+			// If click is inside the bubble, don't toggle
+			if ($(e.target).closest('.tf-measure-tooltip-bubble').length) {
+				return;
+			}
+
+			// Prevent parent label from focusing its associated input
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $help = $(this);
+			var wasActive = $help.hasClass('tf-is-active');
+
+			closeMeasureTooltips();
+
+			if (!wasActive) {
+				$help.addClass('tf-is-active');
+				if (window.innerWidth <= 768) {
+					$overlay.addClass('tf-is-active');
+					$('body').addClass('tf-measure-modal-open');
+				}
+			}
+		});
+
+		// Prevent clicks inside the bubble from bubbling to parent label or document
+		$(document).on('click', '.tf-measure-tooltip-bubble', function (e) {
+			e.stopPropagation();
+		});
+
+		// Click on overlay to close: absorbs event completely
+		$overlay.on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			closeMeasureTooltips();
+		});
+
+		// Keyboard ESC to close
+		$(document).on('keydown', function (e) {
+			if (e.key === 'Escape' || e.keyCode === 27) {
+				closeMeasureTooltips();
+			}
+		});
+
+		// Click outside on desktop
+		$(document).on('click', function (e) {
+			if (!$(e.target).closest('.tf-measure-help, .tf-measure-overlay').length) {
+				closeMeasureTooltips();
+			}
+		});
+	}
+
+	/**
+	 * Size Chart Modal.
+	 * Opens a lightbox modal showing the standard size chart image.
+	 * Triggered by the "Tabla de talles" link rendered by PHP.
+	 */
+	function bindSizeChartModal() {
+		var $modal = $('#tf_size_chart_modal');
+		if (!$modal.length) return;
+
+		var $backdrop = $modal.find('.tf-size-chart-modal__backdrop');
+		var $closeBtn = $modal.find('.tf-size-chart-modal__close');
+
+		function openModal(e) {
+			e.preventDefault();
+			$modal.addClass('tf-is-open');
+			$('body').addClass('tf-size-chart-open');
+		}
+
+		function closeModal() {
+			$modal.removeClass('tf-is-open');
+			$('body').removeClass('tf-size-chart-open');
+		}
+
+		// Open: click on any "Tabla de talles" link
+		$(document).on('click', '.tf-size-chart-link', openModal);
+
+		// Close: click × button
+		$closeBtn.on('click', closeModal);
+
+		// Close: click backdrop
+		$backdrop.on('click', closeModal);
+
+		// Close: ESC key
+		$(document).on('keydown', function (e) {
+			if ((e.key === 'Escape' || e.keyCode === 27) && $modal.hasClass('tf-is-open')) {
+				closeModal();
+			}
+		});
+	}
+
 	$(function () {
 		bindVariationPrice();
 		bindStickyBar();
 		bindCustomSizing();
+		bindMeasureTooltips();
+		bindSizeChartModal();
 	});
 
 })(jQuery);

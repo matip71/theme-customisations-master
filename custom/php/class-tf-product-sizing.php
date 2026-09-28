@@ -18,6 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class TF_Product_Sizing {
 
     /**
+     * URL of the standard size chart image.
+     *
+     * Change this constant to update the image shown in the
+     * "Tabla de talles" modal across all products.
+     */
+    const SIZE_CHART_IMAGE = 'https://braddia.com/wp-content/uploads/2026/09/Talles-estandar-braddia.png';
+
+    /**
      * Wire up all WooCommerce hooks in one auditable place.
      */
     public function __construct() {
@@ -26,6 +34,7 @@ class TF_Product_Sizing {
         add_filter( 'woocommerce_add_cart_item_data',              array( $this, 'save_to_cart' ), 10, 2 );
         add_filter( 'woocommerce_get_item_data',                   array( $this, 'display_in_cart' ), 10, 2 );
         add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'save_to_order' ), 10, 4 );
+        add_action( 'wp_footer',                                   array( $this, 'render_size_chart_modal' ) );
     }
 
     // ─── A. Render ──────────────────────────────────────────────────
@@ -50,6 +59,9 @@ class TF_Product_Sizing {
         // its own select. If "A medida" is not enabled either, there is
         // nothing extra for us to render.
         if ( $talle_is_variation && ! $habilitado ) {
+            // Even when we skip our custom select, we still want the
+            // "Tabla de talles" link under the WC-rendered dropdown.
+            $this->render_size_chart_link();
             return;
         }
 
@@ -79,6 +91,8 @@ class TF_Product_Sizing {
                 </select>
             </p>
             <?php endif; ?>
+
+            <?php $this->render_size_chart_link(); ?>
 
             <?php if ( $habilitado && ! empty( $medidas_requeridas ) ) : ?>
             <div id="tf_medidas_wrap" class="tf-medidas-wrap">
@@ -330,5 +344,48 @@ class TF_Product_Sizing {
             }
         }
         return false;
+    }
+
+    // ─── G. Size Chart ─────────────────────────────────────────────
+
+    /**
+     * Render the "Tabla de talles" link below the talle dropdown.
+     */
+    private function render_size_chart_link() {
+        ?>
+        <p class="tf-size-chart-link-wrap">
+            <a href="#" class="tf-size-chart-link" id="tf_size_chart_trigger" aria-label="<?php esc_attr_e( 'Ver tabla de talles', 'woocommerce' ); ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 3H3v7h18V3z"/><path d="M21 14H3v7h18v-7z"/><path d="M7 3v7"/><path d="M12 3v7"/><path d="M17 3v7"/><path d="M7 14v7"/><path d="M12 14v7"/><path d="M17 14v7"/>
+                </svg>
+                <?php esc_html_e( 'Tabla de talles', 'woocommerce' ); ?>
+            </a>
+        </p>
+        <?php
+    }
+
+    /**
+     * Render the size chart lightbox modal in the page footer.
+     * Only output on single-product pages.
+     */
+    public function render_size_chart_modal() {
+        if ( ! is_product() ) {
+            return;
+        }
+
+        $image_url = self::SIZE_CHART_IMAGE;
+        ?>
+        <div class="tf-size-chart-modal" id="tf_size_chart_modal" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Tabla de talles', 'woocommerce' ); ?>">
+            <div class="tf-size-chart-modal__backdrop"></div>
+            <div class="tf-size-chart-modal__content">
+                <button type="button" class="tf-size-chart-modal__close" aria-label="<?php esc_attr_e( 'Cerrar', 'woocommerce' ); ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+                <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php esc_attr_e( 'Tabla de talles', 'woocommerce' ); ?>" />
+            </div>
+        </div>
+        <?php
     }
 }
