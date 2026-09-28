@@ -913,6 +913,28 @@ ul.products li.product .button:hover, ul.products li.product .button:focus {
   max-width: 35%;
 }
 
+.tf-measure-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.tf-measure-overlay.tf-is-active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  body.tf-measure-modal-open {
+    overflow: hidden;
+  }
+}
+
 .tf-measure-help {
   position: relative;
   display: inline-flex;
@@ -920,15 +942,19 @@ ul.products li.product .button:hover, ul.products li.product .button:focus {
   margin-left: 0.4em;
   cursor: help;
 }
+.tf-measure-help.tf-is-active {
+  z-index: 10001;
+}
 .tf-measure-help .tf-measure-tooltip-trigger {
   display: inline-flex;
   color: #969696;
+  cursor: pointer;
 }
 .tf-measure-help .tf-measure-tooltip-trigger svg {
   width: 16px;
   height: 16px;
 }
-.tf-measure-help:hover .tf-measure-tooltip-trigger {
+.tf-measure-help:hover .tf-measure-tooltip-trigger, .tf-measure-help.tf-is-active .tf-measure-tooltip-trigger {
   color: #333333;
 }
 .tf-measure-help .tf-measure-tooltip-bubble {
@@ -950,8 +976,30 @@ ul.products li.product .button:hover, ul.products li.product .button:focus {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
+  position: relative;
+  z-index: 1;
 }
-.tf-measure-help:hover .tf-measure-tooltip-bubble {
+@media (max-width: 768px) {
+  .tf-measure-help .tf-measure-tooltip-bubble {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: auto;
+    width: calc(100vw - 48px);
+    max-width: 400px;
+    z-index: 10001;
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+@media (min-width: 769px) {
+  .tf-measure-help:hover .tf-measure-tooltip-bubble {
+    display: block;
+  }
+}
+.tf-measure-help.tf-is-active .tf-measure-tooltip-bubble {
   display: block;
 }
 
@@ -1018,6 +1066,110 @@ ul.products li.product .button:hover, ul.products li.product .button:focus {
   display: block;
 }
 
+.tf-size-chart-link-wrap {
+  margin: 5px 0 10px;
+}
+
+.tf-size-chart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #969696;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+.tf-size-chart-link svg {
+  flex-shrink: 0;
+}
+.tf-size-chart-link:hover, .tf-size-chart-link:focus {
+  color: #333333;
+}
+
+.tf-size-chart-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  align-items: center;
+  justify-content: center;
+}
+.tf-size-chart-modal.tf-is-open {
+  display: flex;
+}
+
+.tf-size-chart-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.tf-size-chart-modal__content {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: min(90vw, 720px);
+  max-height: 90vh;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  animation: tfSizeChartFadeIn 0.25s ease;
+}
+@media (max-width: 767px) {
+  .tf-size-chart-modal__content {
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: 5px;
+    border-radius: 8px;
+  }
+}
+.tf-size-chart-modal__content img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.tf-size-chart-modal__close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #dadad6;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, color 0.2s ease;
+  color: #969696;
+  padding: 0;
+}
+.tf-size-chart-modal__close:hover {
+  background: #e9e9e5;
+  color: #333333;
+}
+
+body.tf-size-chart-open {
+  overflow: hidden;
+}
+
+@keyframes tfSizeChartFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 #secondary.widget-area .widget {
   margin-bottom: 20px;
 }

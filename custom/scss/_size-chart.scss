@@ -1,0 +1,122 @@
+@use 'variables' as *;
+
+// ══════════════════════════════════════════════════════════
+// Size Chart — Link + Lightbox Modal
+// ══════════════════════════════════════════════════════════
+
+// ── Trigger link ─────────────────────────────────────────
+
+.tf-size-chart-link-wrap {
+	margin: $spacing-xs 0 $spacing-sm;
+}
+
+.tf-size-chart-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 0.82rem;
+	color: $text-muted;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	transition: color $transition-fast;
+	cursor: pointer;
+
+	svg {
+		flex-shrink: 0;
+	}
+
+	&:hover,
+	&:focus {
+		color: $text-primary;
+	}
+}
+
+// ── Modal overlay + content ──────────────────────────────
+
+.tf-size-chart-modal {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	align-items: center;
+	justify-content: center;
+
+	&.tf-is-open {
+		display: flex;
+	}
+}
+
+.tf-size-chart-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+}
+
+.tf-size-chart-modal__content {
+	position: relative;
+	z-index: 1;
+	background: $white;
+	border-radius: 10px;
+	padding: $spacing-sm;
+	max-width: min(90vw, 720px);
+	max-height: 90vh;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+	animation: tfSizeChartFadeIn 0.25s ease;
+
+	@media (max-width: $bp-mobile) {
+		max-width: 95vw;
+		max-height: 95vh;
+		padding: $spacing-xs;
+		border-radius: 8px;
+	}
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 6px;
+	}
+}
+
+.tf-size-chart-modal__close {
+	position: absolute;
+	top: -12px;
+	right: -12px;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: $white;
+	border: 1px solid $border;
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	transition: background $transition-fast, color $transition-fast;
+	color: $text-muted;
+	padding: 0;
+
+	&:hover {
+		background: $surface;
+		color: $text-primary;
+	}
+}
+
+// Lock body scroll while modal is open
+body.tf-size-chart-open {
+	overflow: hidden;
+}
+
+// ── Entrance animation ───────────────────────────────────
+
+@keyframes tfSizeChartFadeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

@@ -72,6 +72,30 @@
 	max-width: 35%;
 }
 
+// Backdrop overlay for mobile measure tooltip modal
+.tf-measure-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 10000;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+
+	&.tf-is-active {
+		display: block;
+	}
+}
+
+body.tf-measure-modal-open {
+	@media (max-width: 768px) {
+		overflow: hidden;
+	}
+}
+
 .tf-measure-help {
 	position: relative;
 	display: inline-flex;
@@ -79,10 +103,15 @@
 	margin-left: 0.4em;
 	cursor: help;
 
+	&.tf-is-active {
+		z-index: 10001;
+	}
+
 	// The info icon
 	.tf-measure-tooltip-trigger {
 		display: inline-flex;
 		color: $text-muted;
+		cursor: pointer;
 
 		svg {
 			width: 16px;
@@ -90,7 +119,8 @@
 		}
 	}
 
-	&:hover .tf-measure-tooltip-trigger {
+	&:hover .tf-measure-tooltip-trigger,
+	&.tf-is-active .tf-measure-tooltip-trigger {
 		color: $text-primary;
 	}
 
@@ -114,11 +144,35 @@
 			max-width: 100%;
 			height: auto;
 			border-radius: 4px;
+			position: relative;
+			z-index: 1;
+		}
+
+		// Mobile: modal-style
+		@media (max-width: 768px) {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			bottom: auto;
+			width: calc(100vw - 48px);
+			max-width: 400px;
+			z-index: 10001;
+			border-radius: 10px;
+			padding: 8px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 		}
 	}
 
-	// Show on hover
-	&:hover .tf-measure-tooltip-bubble {
+	// Desktop: show on hover
+	@media (min-width: 769px) {
+		&:hover .tf-measure-tooltip-bubble {
+			display: block;
+		}
+	}
+
+	// Active state (mobile click or toggle)
+	&.tf-is-active .tf-measure-tooltip-bubble {
 		display: block;
 	}
 }
